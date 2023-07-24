@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Git基础概念和常用命令</title>
+    <url>/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="1-概念和原理"><a href="#1-概念和原理" class="headerlink" title="1. 概念和原理"></a>1. 概念和原理</h2><h3 id="1-1-本地的三种工作区域"><a href="#1-1-本地的三种工作区域" class="headerlink" title="1.1 本地的三种工作区域"></a>1.1 本地的三种工作区域</h3><ul>
+<li>工作区：项目的文件夹</li>
+<li>暂存区：暂存被改动的文件,位于<code>.git</code>下的<code>index</code>文件，<code>git add</code>后文件都会被添加到暂存区内，<code>git commit</code>只提交暂存区中的文件，工作区的文件不提交</li>
+<li>版本库：<code>.git</code>文件夹，保存了项目所有历史的版本记录，<code>git commit</code>后文件会被提交到版本库内</li>
+</ul>
+<h2 id="2-基础命令"><a href="#2-基础命令" class="headerlink" title="2. 基础命令"></a>2. 基础命令</h2><h3 id="2-1-配置"><a href="#2-1-配置" class="headerlink" title="2.1 配置"></a>2.1 配置</h3><ul>
+<li><code>/etc/gitconfig</code>: 系统配置，对应<code>git config --system</code></li>
+<li><code>~/.gitconfig</code>: 用户配置，对应<code>git config --global</code></li>
+<li><code>.git/config</code>: 本地仓库配置，对应<code>git config --local</code></li>
+<li><code>local</code>覆盖<code>global</code>覆盖<code>system</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有的配置以及它们所在的文件</span></span><br><span class="line">git config --list --show-origin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置你的用户名和邮件地址</span></span><br><span class="line">git config --global user.name &quot;&quot;</span><br><span class="line">git config --gloabl user.email &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="2-2-帮助"><a href="#2-2-帮助" class="headerlink" title="2.2 帮助"></a>2.2 帮助</h3><ul>
+<li>详细信息：<code>git &lt;verb&gt; --help</code></li>
+<li>简单信息：<code>git &lt;verb&gt; -h</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --help</span><br><span class="line">git config -h</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3-获取Git仓库"><a href="#2-3-获取Git仓库" class="headerlink" title="2.3 获取Git仓库"></a>2.3 获取Git仓库</h3><ul>
+<li>已经存在的目录变成git仓库<ul>
+<li><code>git init</code>: 初始化本地仓库，生成<code>.git</code>文件夹，同时会创建唯一一个分支<code>master</code>，<code>.git</code>文件夹拥有所有的版本控制信息</li>
+</ul>
+</li>
+<li>克隆现有仓库<ul>
+<li>拷贝远程仓库：<code>git clone https://github.com/apache/spark</code></li>
+</ul>
+</li>
+<li>拷贝然后指定新目录名称：<code>git clone https://github.com/apache/spark mySpark</code></li>
+</ul>
+<h3 id="2-4-记录每次更新到仓库"><a href="#2-4-记录每次更新到仓库" class="headerlink" title="2.4 记录每次更新到仓库"></a>2.4 记录每次更新到仓库</h3><p><img src="/./image/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/1204574-20180425163547215-1719844952.png" alt="img"></p>
+<ul>
+<li>文件状态：未跟踪（untracked），已跟踪（unmodified，modified，staged）</li>
+<li><code>git status</code>: 查看工作区、暂存区文件状态</li>
+<li><code>git add</code>: 跟踪文件，将工作区文件添加到暂存区<code>git add file.txt</code>。理解为：将文件添加到下一次提交中</li>
+</ul>
+<blockquote>
+<p>对于已经在暂存区的文件，如果再对其进行修改，那么在提交的时候要注意：</p>
+<ol>
+<li>如果此时提交，那么提交的版本是暂存区的版本，而不是最新版</li>
+<li>如果执行<code>git add .</code>，那么暂存区会变成最新版，提交的就是最新版</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>git commit -m &quot;msg&quot;</code>:暂存区所有文件添加到本地仓库 </li>
+<li>删除文件：取消跟踪文件，并联带着一起删除：<code>git rm &lt;file&gt;</code></li>
+<li>移动文件：<code>git mv &lt;from&gt; &lt;to&gt;</code></li>
+</ul>
+<h3 id="2-5-查看文件的修改内容"><a href="#2-5-查看文件的修改内容" class="headerlink" title="2.5 查看文件的修改内容"></a>2.5 查看文件的修改内容</h3><ul>
+<li><p>工作区和暂存区的差异</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>暂存区和最后一次提交的差异</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff --staged</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-6-查看提交历史"><a href="#2-6-查看提交历史" class="headerlink" title="2.6 查看提交历史"></a>2.6 查看提交历史</h3><ul>
+<li><code>git log</code>: 每个提交的 SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明</li>
+<li><code>git log -p</code>: 显示每个提交的差异</li>
+<li><code>git log -p -2</code>: 只显示最近两个提交</li>
+<li><code>git log stat</code>: 简单的统计信息</li>
+<li><code>git log --pretty=oneline</code>: 每个提交只展示一行</li>
+<li><code>git log --graph</code>: 图形展示</li>
+</ul>
+<h3 id="2-7-覆盖上一次提交"><a href="#2-7-覆盖上一次提交" class="headerlink" title="2.7 覆盖上一次提交"></a>2.7 覆盖上一次提交</h3><ul>
+<li><code>git commit --amend</code>: 会将暂存区的文件提交，并修改commit message</li>
+</ul>
+<h3 id="2-8-文件从暂存区撤回工作区"><a href="#2-8-文件从暂存区撤回工作区" class="headerlink" title="2.8 文件从暂存区撤回工作区"></a>2.8 文件从暂存区撤回工作区</h3><ul>
+<li><code>git restore --staged &lt;file&gt;</code></li>
+</ul>
+<h3 id="2-9-取消对于工作区文件的修改"><a href="#2-9-取消对于工作区文件的修改" class="headerlink" title="2.9 取消对于工作区文件的修改"></a>2.9 取消对于工作区文件的修改</h3><ul>
+<li><code>git restore &lt;file&gt;</code></li>
+</ul>
+<h3 id="2-10-远程仓库配置"><a href="#2-10-远程仓库配置" class="headerlink" title="2.10 远程仓库配置"></a>2.10 远程仓库配置</h3><ul>
+<li>默认的远程仓库简写名称：<code>origin</code></li>
+<li>显示读写的远程仓库：<code>git remote -v</code></li>
+<li>添加远程仓库：<code>git remote add &lt;shortname&gt; &lt;url&gt;</code></li>
+<li>拉取远程仓库（只下载，不合并）：<code>git fetch</code></li>
+<li>抓取并合并到本地分支：<code>git pull origin &lt;branch&gt;</code> </li>
+<li>推送到远程仓库：<code>git push origin &lt;branch&gt;</code></li>
+</ul>
+<h3 id="2-11-打tag"><a href="#2-11-打tag" class="headerlink" title="2.11 打tag"></a>2.11 打tag</h3><ul>
+<li>列出所有标签：<code>git tag</code></li>
+<li>查找制定模式的标签：<code>git tag -l &quot;mb2021*&quot;</code></li>
+<li>附注标签的操作：<ul>
+<li>add tag: <code>git tag -a &lt;tag&gt; -m &quot;&quot;</code></li>
+<li>delete tag: <code>git tag -d &lt;tag&gt;</code></li>
+<li>add remote tag: <code>git push origin -f &lt;tag&gt;</code></li>
+<li>delete remote tag: <code>git push origin -d &lt;tag&gt;</code></li>
+<li>show tag: <code>git show &lt;tag&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-分支命令"><a href="#3-分支命令" class="headerlink" title="3. 分支命令"></a>3. 分支命令</h2><h3 id="3-1-新建并切换分支"><a href="#3-1-新建并切换分支" class="headerlink" title="3.1 新建并切换分支"></a>3.1 新建并切换分支</h3><ul>
+<li><code>git checkout -b new_branch</code></li>
+<li><code>HEAD</code>: 指向当前所在的本地分支</li>
+<li><code>git log --oneline --decorate --graph --all</code>: 查看项目分叉的历史</li>
+</ul>
+<h3 id="3-2-分支合并"><a href="#3-2-分支合并" class="headerlink" title="3.2 分支合并"></a>3.2 分支合并</h3><ul>
+<li><p>dev分支合并到master分支</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 先checkout到master分支</span></span><br><span class="line">git checkout master</span><br><span class="line"><span class="comment"># 再把dev合并进来</span></span><br><span class="line">git merge dev</span><br><span class="line"><span class="comment"># 合并完成后，可以删除分支</span></span><br><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遇到合并冲突</p>
+<ul>
+<li>先用<code>git status</code>找到<code>Unmerged paths</code>里面的文件，手动解决冲突</li>
+<li>然后<code>git commit</code>完成提交</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-查看分支"><a href="#3-3-查看分支" class="headerlink" title="3.3 查看分支"></a>3.3 查看分支</h3><ul>
+<li><code>git branch</code>: 列出所有分支</li>
+<li><code>git branch -v</code>: 列出所有分支，及对应最后一次提交</li>
+<li><code>git branch --merged</code>: 列出已经合并到<strong>当前</strong>分支的分支</li>
+<li><code>git branch --merged master</code>: 列出已经合并到<strong>master</strong>分支的分支</li>
+<li><code>git branch --no-merged</code>: 列出还没有合并到<strong>当前</strong>分支的分支</li>
+<li><code>git branch --no-merged master</code>: 列出还没有合并到<strong>master</strong>分支的分支</li>
+</ul>
+<h3 id="3-4-删除分支"><a href="#3-4-删除分支" class="headerlink" title="3.4 删除分支"></a>3.4 删除分支</h3><ul>
+<li><code>git branch -d dev</code>: 可以删除已经合并过的分支，即<code>git branch --merged</code>列出的分支</li>
+<li><code>git branch -D dev</code>: 强制删除任意分支（master不能删除）</li>
+</ul>
+<h3 id="3-5-变基（另一种merge分支的方法）"><a href="#3-5-变基（另一种merge分支的方法）" class="headerlink" title="3.5 变基（另一种merge分支的方法）"></a>3.5 变基（另一种merge分支的方法）</h3><ul>
+<li><p>作用：使提交历史更简洁</p>
+</li>
+<li><p>何时不能用：分支已经提交到远程仓库，别人可能用这个分支进行开发</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 变基</span></span><br><span class="line">git checkout <span class="built_in">test</span></span><br><span class="line">git rebase master</span><br><span class="line"><span class="comment"># 合并</span></span><br><span class="line">git checkout master</span><br><span class="line">git merge <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">git branch -d <span class="built_in">test</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-子模块"><a href="#4-子模块" class="headerlink" title="4. 子模块"></a>4. 子模块</h2><h3 id="4-1-克隆项目的同时下载所有子模块"><a href="#4-1-克隆项目的同时下载所有子模块" class="headerlink" title="4.1 克隆项目的同时下载所有子模块"></a>4.1 克隆项目的同时下载所有子模块</h3><ul>
+<li><p>默认在克隆项目时，子模块不会自动下载</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:wangjiapengone/wangjiapengone.github.io.git --recurse-submodules</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子项目下载后，可能不是最新的<code>commit</code>，需要手动更新</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git submodule foreach git pull origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子项目<code>head</code>默认状态为<code>detached</code>，需要手动切换为<code>master</code>分支</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git submodule foreach git checkout master</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-工作中遇到的问题"><a href="#5-工作中遇到的问题" class="headerlink" title="5. 工作中遇到的问题"></a>5. 工作中遇到的问题</h2><h3 id="5-1-项目首次从远端拉取代码失败"><a href="#5-1-项目首次从远端拉取代码失败" class="headerlink" title="5.1. 项目首次从远端拉取代码失败"></a>5.1. 项目首次从远端拉取代码失败</h3><ul>
+<li><p>报错：<code>fatal: &#39;origin&#39; does not appear to be a git repository </code></p>
+  <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">fatal: Could <span class="keyword">not</span> <span class="built_in">read</span> <span class="keyword">from</span> remote repository.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法：把项目地址加入到origin配置中</p>
+  <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">git remote add origin git@github<span class="selector-class">.com</span>:wangjiapengone/wangjiapengone<span class="selector-class">.github</span><span class="selector-class">.io</span>.git</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-2-git-remote-add-origin配置失败-git-pull-取消密码"><a href="#5-2-git-remote-add-origin配置失败-git-pull-取消密码" class="headerlink" title="5.2. git remote add origin配置失败 &#x2F; git pull 取消密码"></a>5.2. git remote add origin配置失败 &#x2F; git pull 取消密码</h3><ul>
+<li><p>报错：<code>fatal: remote origin already exists.</code></p>
+</li>
+<li><p>解决办法：报错的原因是origin地址已经存在，需要把地址修改一下</p>
+  <figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">git</span>@<span class="string">github</span>.<span class="string">com:wangjiapengone/</span><span class="string">wangjiapengone</span>.<span class="string">github</span>.<span class="string">io</span>.<span class="string">git</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-3-GitLab免密操作"><a href="#5-3-GitLab免密操作" class="headerlink" title="5.3. GitLab免密操作"></a>5.3. <code>GitLab</code>免密操作</h3><ul>
+<li><p>简单做法</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在机器上生成新的秘钥</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;jiapeng@ubuntu-22&quot;</span> -P <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 把公钥信息复制到GitLab页面中</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="comment"># 注意配置用户名和邮箱</span></span><br><span class="line">git config --<span class="built_in">local</span> user.name wangjiapeng</span><br><span class="line">git config --<span class="built_in">local</span> user.email wangjiapeng@xxx.com</span><br><span class="line"><span class="comment"># 更改远程url</span></span><br><span class="line">git config --<span class="built_in">local</span> remote.origin.url git@github.com:wangjiapengone/wangjiapengone.github.io.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果是多人合作，可以生成自己单独的秘钥</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在新文件中生成秘钥</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;wangjiapeng@xxx.com&quot;</span> -P <span class="string">&#x27;&#x27;</span> -f /home/rd/.ssh/id_rsa_wjp</span><br><span class="line"><span class="comment"># 把公钥信息复制到GitLab页面中</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="comment"># 注意配置用户名和邮箱</span></span><br><span class="line">git config --<span class="built_in">local</span> user.name wangjiapeng</span><br><span class="line">git config --<span class="built_in">local</span> user.email wangjiapeng@xxx.com</span><br><span class="line"><span class="comment"># 更改远程url</span></span><br><span class="line">git config --<span class="built_in">local</span> remote.origin.url git@github.com:wangjiapengone/wangjiapengone.github.io.git</span><br><span class="line"><span class="comment"># 重要：git默认不会识别除了id_rsa以外的文件需要在config里面设置</span></span><br><span class="line">vim ~/.ssh/config</span><br><span class="line"><span class="comment"># 添加如下配置到config文件中</span></span><br><span class="line">Host github.com</span><br><span class="line">  PreferredAuthentications publickey</span><br><span class="line">  IdentityFile ~/.ssh/id_rsa_wjp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-4-代码上传到GitHub"><a href="#5-4-代码上传到GitHub" class="headerlink" title="5.4. 代码上传到GitHub"></a>5.4. 代码上传到<code>GitHub</code></h3><ul>
+<li>在<code>GitHub</code>上创建一个空的仓库</li>
+<li><code>git init</code>初始化本地仓库</li>
+<li>秘钥配置参考上文</li>
+<li>注意，<code>GitHub</code>的主分支为<code>main</code>，本地分支需要名称一致，如果远程仓库有初始化的文件，需要先<code>git pull origin main --rebase --allow-unrelated-histories</code></li>
+<li>最后<code>git push --set-upstream origin main</code></li>
+</ul>
+<h3 id="5-5-打补丁"><a href="#5-5-打补丁" class="headerlink" title="5.5 打补丁"></a>5.5 打补丁</h3><ul>
+<li>希望测试开源项目中没有合到<code>master</code>的代码</li>
+<li>打开<code>pull requests</code>，对应的地址为：<a href="https://github.com/apache/superset/pull/24368">https://github.com/apache/superset/pull/24368</a>  在后面添加<code>.patch</code></li>
+<li>网页会跳转为：<br>  <code>https://patch-diff.githubusercontent.com/raw/apache/superset/pull/24368.patch</code></li>
+<li>下载页面内容：<br>  <code>wget https://patch-diff.githubusercontent.com/raw/apache/superset/pull/24368.patch</code></li>
+<li>应用补丁：<code>git apply 24368.patch</code></li>
+<li>最后<code>git status</code>看一下，补丁会转换为未提交的代码</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java8-17的新特性</title>
+    <url>/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h2 id="Lambda表达式（Java-8）"><a href="#Lambda表达式（Java-8）" class="headerlink" title="Lambda表达式（Java 8）"></a>Lambda表达式（Java 8）</h2><h4 id="1-Lambda表达式的本质"><a href="#1-Lambda表达式的本质" class="headerlink" title="1. Lambda表达式的本质"></a>1. Lambda表达式的本质</h4><ul>
+<li>就是一个对象，是接口实现类的对象</li>
+<li>也是一个匿名函数</li>
+</ul>
+<h4 id="2-使用场景"><a href="#2-使用场景" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
+<li>应用于函数式接口（接口只声明一个抽象方法）</li>
+<li>只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式</li>
+</ul>
+<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">-&gt; : lambda操作符或箭头操作符</span><br><span class="line">-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则一对()也可以省略。</span><br><span class="line">-&gt; 的右边：lambda体，对应着重写的方法的方法体。如果方法体中只有一行执行语句，则一对&#123;&#125;可以省略。如果有<span class="keyword">return</span>关键字，则必须一并省略。</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+
+<h2 id="方法引用、构造器引用（Java-8）"><a href="#方法引用、构造器引用（Java-8）" class="headerlink" title="方法引用、构造器引用（Java 8）"></a>方法引用、构造器引用（Java 8）</h2><h4 id="1-方法引用的本质"><a href="#1-方法引用的本质" class="headerlink" title="1. 方法引用的本质"></a>1. 方法引用的本质</h4><ul>
+<li>和Lambda一样，就是一个对象，是接口实现类的对象</li>
+<li>可以认为是lambda表达式进一步简化，当lambda表达式满足一定条件时，可以使用方法引用</li>
+</ul>
+<h4 id="2-使用场景-1"><a href="#2-使用场景-1" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
+<li><p>当以下情形满足时，可以简化lambda表达式的代码</p>
+<table>
+<thead>
+<tr>
+<th>情形</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对象::实例方法</td>
+<td>1. 函数式接口的抽象方法a与实现方法b的形参列表和返回值类型相同<br />2. 注意：b为非静态方法，需要对象调用</td>
+</tr>
+<tr>
+<td>类::静态方法</td>
+<td>1. 函数式接口的抽象方法a与实现方法中类的静态方法b的形参列表和返回值类型相同<br />2. 注意：b为静态方法，需要类调用</td>
+</tr>
+<tr>
+<td>类::实例方法</td>
+<td>1. 函数式接口的抽象方法a有n个参数，实现方法中，第一个参数用于调用方法，方法中的参数为后面的n-1个参数<br />2. 注意：b为非静态方法，需要类调用</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 方法引用：类（对象）::方法名</span><br><span class="line"><span class="bullet">2.</span> 构造器引用：类::new，不需要提供形参列表，java会根据使用时传入的形参列表去判断</span><br><span class="line"><span class="bullet">3.</span> 数组引用：类[]::new</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-Stream-API（Java-8）"><a href="#3-Stream-API（Java-8）" class="headerlink" title="3. Stream API（Java 8）"></a>3. Stream API（Java 8）</h2><h4 id="1-Stream-API-和集合框架对比"><a href="#1-Stream-API-和集合框架对比" class="headerlink" title="1. Stream API 和集合框架对比"></a>1. Stream API 和集合框架对比</h4><ul>
+<li>Stream API 关注的是数据的计算，面向CPU</li>
+<li>集合关注数据存储，面向内存</li>
+<li>Steam API 和集合的关系，类似于SQL语句和数据表的关系</li>
+</ul>
+<h4 id="2-Stream-API特性"><a href="#2-Stream-API特性" class="headerlink" title="2. Stream API特性"></a>2. Stream API特性</h4><ul>
+<li><code>Stream</code>自己不会存储元素</li>
+<li><code>Stream</code>不会改变源对象。相反，他们会返回一个持有结果的新<code>Stream</code></li>
+<li><code>Stream</code>操作是惰性的。这意味着他们会等到需要结果的时候才执行。即一旦执行终止操作，就执行中间操作链，并产生结果</li>
+<li><code>Stream</code>一旦执行了终止操作，就不能再调用其它中间操作或终止操作了</li>
+</ul>
+<h2 id="4-其他新语法和API"><a href="#4-其他新语法和API" class="headerlink" title="4. 其他新语法和API"></a>4. 其他新语法和API</h2><h4 id="1-jShell"><a href="#1-jShell" class="headerlink" title="1. jShell"></a>1. jShell</h4><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/help: 获取有关使用 jshell 工具的信息</span><br><span class="line">/help intro : jshell 工具的简介</span><br><span class="line">/list : 列出当前 session 里所有有效的代码片段</span><br><span class="line">/vars : 查看当前 session 下所有创建过的变量</span><br><span class="line">/methods : 查看当前 session 下所有创建过的方法</span><br><span class="line">/imports : 列出导入的包</span><br><span class="line">/history : 键入的内容的历史记录</span><br><span class="line">/edit : 使用外部代码编辑器来编写 Java 代码</span><br><span class="line">/<span class="keyword">exit</span> : 退出 jshell 工具</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-try-catch资源关闭（是java-7的）"><a href="#2-try-catch资源关闭（是java-7的）" class="headerlink" title="2. try-catch资源关闭（是java 7的）"></a>2. try-catch资源关闭（是java 7的）</h4><ul>
+<li><code>try()</code>中可以放需要关闭的资源，不再需要在<code>finally</code>中手动关闭</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">FileWriter</span> <span class="variable">fw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">     <span class="type">BufferedWriter</span> <span class="variable">bw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(fw)</span><br><span class="line">) &#123;</span><br><span class="line">    bw.write(<span class="string">&quot;hello, world&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-局部变量类型推断"><a href="#3-局部变量类型推断" class="headerlink" title="3. 局部变量类型推断"></a>3. 局部变量类型推断</h4><h4 id="4-instanceof模式匹配"><a href="#4-instanceof模式匹配" class="headerlink" title="4. instanceof模式匹配"></a>4. instanceof模式匹配</h4><ul>
+<li><code>obj instanceof String str</code>,<code>str</code>是变量名称，如果模式匹配成功，<code>str</code>会被自动创建，不再需要强转类型</li>
+</ul>
+<h4 id="5-switch语句"><a href="#5-switch语句" class="headerlink" title="5. switch语句"></a>5. switch语句</h4><ul>
+<li><p>可以省略<code>break</code>：使用符号<code>-&gt;</code>，多行语句使用大括号</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; System.out.println(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; System.out.println(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            System.out.println(<span class="number">4</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; System.out.println(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">default</span> -&gt; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Invalid week: &quot;</span> + week);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以带返回值，多行语句要用<code>yield</code>返回</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; <span class="number">4</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-多行文本块"><a href="#6-多行文本块" class="headerlink" title="6. 多行文本块"></a>6. 多行文本块</h4><ul>
+<li>类似于Python的多行文本块</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    &lt;html&gt;</span></span><br><span class="line"><span class="string">      &lt;body&gt;</span></span><br><span class="line"><span class="string">          &lt;p&gt;Hello, world&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-record"><a href="#7-record" class="headerlink" title="7. record"></a>7. record</h4><ul>
+<li><p>类似于<code>Scala</code>中的<code>case class</code>，可以不用定义类的结构</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传入的参数即为成员变量，<code>final</code>修饰，不可更改</p>
+</li>
+<li><p>只有<code>getter</code>方法，没有<code>setter</code>方法</p>
+</li>
+<li><p><code>record</code>类的父类是<code>Record</code>，因而不可继承</p>
+</li>
+<li><p><code>record</code>类被<code>final</code>修饰，不可被继承</p>
+</li>
+</ul>
+<h4 id="8-sealed密封类"><a href="#8-sealed密封类" class="headerlink" title="8. sealed密封类"></a>8. sealed密封类</h4><ul>
+<li>密封类可以指定只能被某些类继承，其他的类不能继承</li>
+<li>密封类的子类必须是以下三者之一：<code>final</code>、<code>sealed</code>、<code>non-sealed</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 密封类只能被Student, Teacher继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> Student, Teacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Student不能再被继承</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类还是密封类</span></span><br><span class="line"><span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> JuniorTeacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// non-sealed为非密封类，不再限制子类</span></span><br><span class="line"><span class="keyword">non-sealed</span> <span class="keyword">class</span> <span class="title class_">JuniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以正常继承</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SeniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">JuniorTeacher</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-Optional"><a href="#9-Optional" class="headerlink" title="9. Optional"></a>9. Optional</h4><ul>
+<li>类似于<code>Scala</code>中的<code>Option</code></li>
+<li>为了避免代码中的空指针异常</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello, world&quot;</span>;</span><br><span class="line"><span class="comment">// s = null;</span></span><br><span class="line"><span class="comment">// 实例化</span></span><br><span class="line">Optional&lt;String&gt; optional = Optional.ofNullable(s);</span><br><span class="line"><span class="comment">// get元素</span></span><br><span class="line">System.out.println(optional.orElse(<span class="string">&quot;default&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>About</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>categories</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>tags</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+</search>
