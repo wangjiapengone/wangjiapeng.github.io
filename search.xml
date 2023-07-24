@@ -303,6 +303,11 @@
       </tags>
   </entry>
   <entry>
+    <title>About</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>categories</title>
     <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
@@ -310,11 +315,6 @@
   <entry>
     <title>tags</title>
     <url>/tags/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
