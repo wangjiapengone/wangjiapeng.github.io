@@ -4,8 +4,8 @@
 
 # Site
 title: JP Wang's blog
-subtitle: ''
-description: ''
+subtitle: 'Hello World!'
+description: 'hello'
 keywords:
 author: Jiapeng Wang
 language: zh-CN
@@ -13,8 +13,8 @@ timezone: "Asia/Shanghai"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://wangjiapengone.github.io/wangjiapeng.github.io/
-permalink: :year/:month/:day/:title/
+url: https://wangjiapengoneone.github.io/
+permalink: :title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -46,7 +46,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
   hljs: false
@@ -68,6 +68,7 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  编程语言: language
 tag_map:
 
 # Metadata elements
@@ -105,3 +106,25 @@ deploy:
   type: git
   repo: git@github.com:wangjiapengone/wangjiapeng.github.io.git
   branch: main
+
+# 增加文章字数统计及阅读时长功能
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  wpm: 275
+  suffix: "mins."
+
+# 站内搜索
+search:
+  path: search.xml
+  field: all
+  content: true
+  format: html
+
+# 给出站链接添加nofollow标签
+nofollow:
+  enable: true
+
