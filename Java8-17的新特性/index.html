@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wangjiapengoneone.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"wangjiapengoneone.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Lambda表达式（Java 8）1. Lambda表达式的本质 就是一个对象，是接口实现类的对象 也是一个匿名函数  2. 使用场景 应用于函数式接口（接口只声明一个抽象方法） 只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式  3. 语法 123-&gt; : lambda操作符或箭头操作符-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则">
@@ -103,7 +103,7 @@
       <h1 class="site-title">JP Wang's blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
-      <p class="site-subtitle" itemprop="description">Hello World!</p>
+      <p class="site-subtitle" itemprop="description">喜欢您来</p>
   </div>
 
   <div class="site-nav-right">
@@ -201,7 +201,7 @@
     <link itemprop="mainEntityOfPage" href="https://wangjiapengoneone.github.io/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpeg">
       <meta itemprop="name" content="Jiapeng Wang">
       <meta itemprop="description" content="hello">
     </span>
@@ -234,7 +234,14 @@
                 </span>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -267,7 +274,7 @@
 <li>应用于函数式接口（接口只声明一个抽象方法）</li>
 <li>只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式</li>
 </ul>
-<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
+<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
 <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-&gt; : lambda操作符或箭头操作符</span><br><span class="line">-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则一对()也可以省略。</span><br><span class="line">-&gt; 的右边：lambda体，对应着重写的方法的方法体。如果方法体中只有一行执行语句，则一对&#123;&#125;可以省略。如果有<span class="keyword">return</span>关键字，则必须一并省略。</span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
@@ -301,7 +308,7 @@
 </tbody></table>
 </li>
 </ul>
-<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
+<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 方法引用：类（对象）::方法名</span><br><span class="line"><span class="bullet">2.</span> 构造器引用：类::new，不需要提供形参列表，java会根据使用时传入的形参列表去判断</span><br><span class="line"><span class="bullet">3.</span> 数组引用：类[]::new</span><br></pre></td></tr></table></figure>
 
 
@@ -467,6 +474,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jiapeng Wang" src="/images/avatar.jpeg">
   <p class="site-author-name" itemprop="name">Jiapeng Wang</p>
   <div class="site-description" itemprop="description">hello</div>
 </div>
@@ -535,6 +543,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -549,6 +577,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

@@ -37,7 +37,7 @@
 </li>
 <li>拷贝然后指定新目录名称：<code>git clone https://github.com/apache/spark mySpark</code></li>
 </ul>
-<h3 id="2-4-记录每次更新到仓库"><a href="#2-4-记录每次更新到仓库" class="headerlink" title="2.4 记录每次更新到仓库"></a>2.4 记录每次更新到仓库</h3><p><img src="/./image/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/1204574-20180425163547215-1719844952.png" alt="img"></p>
+<h3 id="2-4-记录每次更新到仓库"><a href="#2-4-记录每次更新到仓库" class="headerlink" title="2.4 记录每次更新到仓库"></a>2.4 记录每次更新到仓库</h3><p><img data-src="/./image/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/1204574-20180425163547215-1719844952.png" alt="img"></p>
 <ul>
 <li>文件状态：未跟踪（untracked），已跟踪（unmodified，modified，staged）</li>
 <li><code>git status</code>: 查看工作区、暂存区文件状态</li>
@@ -197,7 +197,7 @@
 <li>应用于函数式接口（接口只声明一个抽象方法）</li>
 <li>只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式</li>
 </ul>
-<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
+<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
 <figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">-&gt; : lambda操作符或箭头操作符</span><br><span class="line">-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则一对()也可以省略。</span><br><span class="line">-&gt; 的右边：lambda体，对应着重写的方法的方法体。如果方法体中只有一行执行语句，则一对&#123;&#125;可以省略。如果有<span class="keyword">return</span>关键字，则必须一并省略。</span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
@@ -231,7 +231,7 @@
 </tbody></table>
 </li>
 </ul>
-<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
+<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 方法引用：类（对象）::方法名</span><br><span class="line"><span class="bullet">2.</span> 构造器引用：类::new，不需要提供形参列表，java会根据使用时传入的形参列表去判断</span><br><span class="line"><span class="bullet">3.</span> 数组引用：类[]::new</span><br></pre></td></tr></table></figure>
 
 
@@ -303,13 +303,13 @@
       </tags>
   </entry>
   <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>About</title>
+    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
