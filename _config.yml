@@ -4,7 +4,7 @@
 
 # Site
 title: JP Wang's blog
-subtitle: 'Hello World!'
+subtitle: '喜欢您来'
 description: 'hello'
 keywords:
 author: Jiapeng Wang
@@ -13,7 +13,7 @@ timezone: "Asia/Shanghai"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://wangjiapengoneone.github.io/
+url: https://wangjiapengone.github.io/
 permalink: :title/
 permalink_defaults:
 pretty_urls:
