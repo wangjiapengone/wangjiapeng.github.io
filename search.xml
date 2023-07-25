@@ -172,7 +172,7 @@
 </ul>
 <h3 id="5-5-打补丁"><a href="#5-5-打补丁" class="headerlink" title="5.5 打补丁"></a>5.5 打补丁</h3><ul>
 <li>希望测试开源项目中没有合到<code>master</code>的代码</li>
-<li>打开<code>pull requests</code>，对应的地址为：<a href="https://github.com/apache/superset/pull/24368">https://github.com/apache/superset/pull/24368</a>  在后面添加<code>.patch</code></li>
+<li>打开<code>pull requests</code>，对应的地址为：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FwYWNoZS9zdXBlcnNldC9wdWxsLzI0MzY4">https://github.com/apache/superset/pull/24368<i class="fa fa-external-link-alt"></i></span>  在后面添加<code>.patch</code></li>
 <li>网页会跳转为：<br>  <code>https://patch-diff.githubusercontent.com/raw/apache/superset/pull/24368.patch</code></li>
 <li>下载页面内容：<br>  <code>wget https://patch-diff.githubusercontent.com/raw/apache/superset/pull/24368.patch</code></li>
 <li>应用补丁：<code>git apply 24368.patch</code></li>
@@ -303,8 +303,8 @@
       </tags>
   </entry>
   <entry>
-    <title>tags</title>
-    <url>/tags/index.html</url>
+    <title>About</title>
+    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -313,8 +313,8 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
+    <title>tags</title>
+    <url>/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
