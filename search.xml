@@ -1,6 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java8-17的新特性</title>
+    <url>/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h2 id="Lambda表达式（Java-8）"><a href="#Lambda表达式（Java-8）" class="headerlink" title="Lambda表达式（Java 8）"></a>Lambda表达式（Java 8）</h2><h4 id="1-Lambda表达式的本质"><a href="#1-Lambda表达式的本质" class="headerlink" title="1. Lambda表达式的本质"></a>1. Lambda表达式的本质</h4><ul>
+<li>就是一个对象，是接口实现类的对象</li>
+<li>也是一个匿名函数</li>
+</ul>
+<h4 id="2-使用场景"><a href="#2-使用场景" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
+<li>应用于函数式接口（接口只声明一个抽象方法）</li>
+<li>只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式</li>
+</ul>
+<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">-&gt; : lambda操作符或箭头操作符</span><br><span class="line">-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则一对()也可以省略。</span><br><span class="line">-&gt; 的右边：lambda体，对应着重写的方法的方法体。如果方法体中只有一行执行语句，则一对&#123;&#125;可以省略。如果有<span class="keyword">return</span>关键字，则必须一并省略。</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+
+<h2 id="方法引用、构造器引用（Java-8）"><a href="#方法引用、构造器引用（Java-8）" class="headerlink" title="方法引用、构造器引用（Java 8）"></a>方法引用、构造器引用（Java 8）</h2><h4 id="1-方法引用的本质"><a href="#1-方法引用的本质" class="headerlink" title="1. 方法引用的本质"></a>1. 方法引用的本质</h4><ul>
+<li>和Lambda一样，就是一个对象，是接口实现类的对象</li>
+<li>可以认为是lambda表达式进一步简化，当lambda表达式满足一定条件时，可以使用方法引用</li>
+</ul>
+<h4 id="2-使用场景-1"><a href="#2-使用场景-1" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
+<li><p>当以下情形满足时，可以简化lambda表达式的代码</p>
+<table>
+<thead>
+<tr>
+<th>情形</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对象::实例方法</td>
+<td>1. 函数式接口的抽象方法a与实现方法b的形参列表和返回值类型相同<br />2. 注意：b为非静态方法，需要对象调用</td>
+</tr>
+<tr>
+<td>类::静态方法</td>
+<td>1. 函数式接口的抽象方法a与实现方法中类的静态方法b的形参列表和返回值类型相同<br />2. 注意：b为静态方法，需要类调用</td>
+</tr>
+<tr>
+<td>类::实例方法</td>
+<td>1. 函数式接口的抽象方法a有n个参数，实现方法中，第一个参数用于调用方法，方法中的参数为后面的n-1个参数<br />2. 注意：b为非静态方法，需要类调用</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 方法引用：类（对象）::方法名</span><br><span class="line"><span class="bullet">2.</span> 构造器引用：类::new，不需要提供形参列表，java会根据使用时传入的形参列表去判断</span><br><span class="line"><span class="bullet">3.</span> 数组引用：类[]::new</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-Stream-API（Java-8）"><a href="#3-Stream-API（Java-8）" class="headerlink" title="3. Stream API（Java 8）"></a>3. Stream API（Java 8）</h2><h4 id="1-Stream-API-和集合框架对比"><a href="#1-Stream-API-和集合框架对比" class="headerlink" title="1. Stream API 和集合框架对比"></a>1. Stream API 和集合框架对比</h4><ul>
+<li>Stream API 关注的是数据的计算，面向CPU</li>
+<li>集合关注数据存储，面向内存</li>
+<li>Steam API 和集合的关系，类似于SQL语句和数据表的关系</li>
+</ul>
+<h4 id="2-Stream-API特性"><a href="#2-Stream-API特性" class="headerlink" title="2. Stream API特性"></a>2. Stream API特性</h4><ul>
+<li><code>Stream</code>自己不会存储元素</li>
+<li><code>Stream</code>不会改变源对象。相反，他们会返回一个持有结果的新<code>Stream</code></li>
+<li><code>Stream</code>操作是惰性的。这意味着他们会等到需要结果的时候才执行。即一旦执行终止操作，就执行中间操作链，并产生结果</li>
+<li><code>Stream</code>一旦执行了终止操作，就不能再调用其它中间操作或终止操作了</li>
+</ul>
+<h2 id="4-其他新语法和API"><a href="#4-其他新语法和API" class="headerlink" title="4. 其他新语法和API"></a>4. 其他新语法和API</h2><h4 id="1-jShell"><a href="#1-jShell" class="headerlink" title="1. jShell"></a>1. jShell</h4><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/help: 获取有关使用 jshell 工具的信息</span><br><span class="line">/help intro : jshell 工具的简介</span><br><span class="line">/list : 列出当前 session 里所有有效的代码片段</span><br><span class="line">/vars : 查看当前 session 下所有创建过的变量</span><br><span class="line">/methods : 查看当前 session 下所有创建过的方法</span><br><span class="line">/imports : 列出导入的包</span><br><span class="line">/history : 键入的内容的历史记录</span><br><span class="line">/edit : 使用外部代码编辑器来编写 Java 代码</span><br><span class="line">/<span class="keyword">exit</span> : 退出 jshell 工具</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-try-catch资源关闭（是java-7的）"><a href="#2-try-catch资源关闭（是java-7的）" class="headerlink" title="2. try-catch资源关闭（是java 7的）"></a>2. try-catch资源关闭（是java 7的）</h4><ul>
+<li><code>try()</code>中可以放需要关闭的资源，不再需要在<code>finally</code>中手动关闭</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">FileWriter</span> <span class="variable">fw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">     <span class="type">BufferedWriter</span> <span class="variable">bw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(fw)</span><br><span class="line">) &#123;</span><br><span class="line">    bw.write(<span class="string">&quot;hello, world&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-局部变量类型推断"><a href="#3-局部变量类型推断" class="headerlink" title="3. 局部变量类型推断"></a>3. 局部变量类型推断</h4><h4 id="4-instanceof模式匹配"><a href="#4-instanceof模式匹配" class="headerlink" title="4. instanceof模式匹配"></a>4. instanceof模式匹配</h4><ul>
+<li><code>obj instanceof String str</code>,<code>str</code>是变量名称，如果模式匹配成功，<code>str</code>会被自动创建，不再需要强转类型</li>
+</ul>
+<h4 id="5-switch语句"><a href="#5-switch语句" class="headerlink" title="5. switch语句"></a>5. switch语句</h4><ul>
+<li><p>可以省略<code>break</code>：使用符号<code>-&gt;</code>，多行语句使用大括号</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; System.out.println(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; System.out.println(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            System.out.println(<span class="number">4</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; System.out.println(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">default</span> -&gt; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Invalid week: &quot;</span> + week);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以带返回值，多行语句要用<code>yield</code>返回</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; <span class="number">4</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-多行文本块"><a href="#6-多行文本块" class="headerlink" title="6. 多行文本块"></a>6. 多行文本块</h4><ul>
+<li>类似于Python的多行文本块</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    &lt;html&gt;</span></span><br><span class="line"><span class="string">      &lt;body&gt;</span></span><br><span class="line"><span class="string">          &lt;p&gt;Hello, world&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-record"><a href="#7-record" class="headerlink" title="7. record"></a>7. record</h4><ul>
+<li><p>类似于<code>Scala</code>中的<code>case class</code>，可以不用定义类的结构</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传入的参数即为成员变量，<code>final</code>修饰，不可更改</p>
+</li>
+<li><p>只有<code>getter</code>方法，没有<code>setter</code>方法</p>
+</li>
+<li><p><code>record</code>类的父类是<code>Record</code>，因而不可继承</p>
+</li>
+<li><p><code>record</code>类被<code>final</code>修饰，不可被继承</p>
+</li>
+</ul>
+<h4 id="8-sealed密封类"><a href="#8-sealed密封类" class="headerlink" title="8. sealed密封类"></a>8. sealed密封类</h4><ul>
+<li>密封类可以指定只能被某些类继承，其他的类不能继承</li>
+<li>密封类的子类必须是以下三者之一：<code>final</code>、<code>sealed</code>、<code>non-sealed</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 密封类只能被Student, Teacher继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> Student, Teacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Student不能再被继承</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类还是密封类</span></span><br><span class="line"><span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> JuniorTeacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// non-sealed为非密封类，不再限制子类</span></span><br><span class="line"><span class="keyword">non-sealed</span> <span class="keyword">class</span> <span class="title class_">JuniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以正常继承</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SeniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">JuniorTeacher</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-Optional"><a href="#9-Optional" class="headerlink" title="9. Optional"></a>9. Optional</h4><ul>
+<li>类似于<code>Scala</code>中的<code>Option</code></li>
+<li>为了避免代码中的空指针异常</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello, world&quot;</span>;</span><br><span class="line"><span class="comment">// s = null;</span></span><br><span class="line"><span class="comment">// 实例化</span></span><br><span class="line">Optional&lt;String&gt; optional = Optional.ofNullable(s);</span><br><span class="line"><span class="comment">// get元素</span></span><br><span class="line">System.out.println(optional.orElse(<span class="string">&quot;default&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git基础概念和常用命令</title>
     <url>/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h2 id="1-概念和原理"><a href="#1-概念和原理" class="headerlink" title="1. 概念和原理"></a>1. 概念和原理</h2><h3 id="1-1-本地的三种工作区域"><a href="#1-1-本地的三种工作区域" class="headerlink" title="1.1 本地的三种工作区域"></a>1.1 本地的三种工作区域</h3><ul>
@@ -187,129 +303,13 @@
       </tags>
   </entry>
   <entry>
-    <title>Java8-17的新特性</title>
-    <url>/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[<h2 id="Lambda表达式（Java-8）"><a href="#Lambda表达式（Java-8）" class="headerlink" title="Lambda表达式（Java 8）"></a>Lambda表达式（Java 8）</h2><h4 id="1-Lambda表达式的本质"><a href="#1-Lambda表达式的本质" class="headerlink" title="1. Lambda表达式的本质"></a>1. Lambda表达式的本质</h4><ul>
-<li>就是一个对象，是接口实现类的对象</li>
-<li>也是一个匿名函数</li>
-</ul>
-<h4 id="2-使用场景"><a href="#2-使用场景" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
-<li>应用于函数式接口（接口只声明一个抽象方法）</li>
-<li>只有给函数式接口提供实现类的对象时，我们才可以使用lambda表达式</li>
-</ul>
-<h4 id="3-语法"><a href="#3-语法" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219160849057.png" alt="image-20230219160849057"></p>
-<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">-&gt; : lambda操作符或箭头操作符</span><br><span class="line">-&gt; 的左边：lambda形参列表，参数的类型都可以省略。如果形参只有一个，则一对()也可以省略。</span><br><span class="line">-&gt; 的右边：lambda体，对应着重写的方法的方法体。如果方法体中只有一行执行语句，则一对&#123;&#125;可以省略。如果有<span class="keyword">return</span>关键字，则必须一并省略。</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-
-<h2 id="方法引用、构造器引用（Java-8）"><a href="#方法引用、构造器引用（Java-8）" class="headerlink" title="方法引用、构造器引用（Java 8）"></a>方法引用、构造器引用（Java 8）</h2><h4 id="1-方法引用的本质"><a href="#1-方法引用的本质" class="headerlink" title="1. 方法引用的本质"></a>1. 方法引用的本质</h4><ul>
-<li>和Lambda一样，就是一个对象，是接口实现类的对象</li>
-<li>可以认为是lambda表达式进一步简化，当lambda表达式满足一定条件时，可以使用方法引用</li>
-</ul>
-<h4 id="2-使用场景-1"><a href="#2-使用场景-1" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h4><ul>
-<li><p>当以下情形满足时，可以简化lambda表达式的代码</p>
-<table>
-<thead>
-<tr>
-<th>情形</th>
-<th>条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>对象::实例方法</td>
-<td>1. 函数式接口的抽象方法a与实现方法b的形参列表和返回值类型相同<br />2. 注意：b为非静态方法，需要对象调用</td>
-</tr>
-<tr>
-<td>类::静态方法</td>
-<td>1. 函数式接口的抽象方法a与实现方法中类的静态方法b的形参列表和返回值类型相同<br />2. 注意：b为静态方法，需要类调用</td>
-</tr>
-<tr>
-<td>类::实例方法</td>
-<td>1. 函数式接口的抽象方法a有n个参数，实现方法中，第一个参数用于调用方法，方法中的参数为后面的n-1个参数<br />2. 注意：b为非静态方法，需要类调用</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h4 id="3-语法-1"><a href="#3-语法-1" class="headerlink" title="3. 语法"></a>3. 语法</h4><p><img data-src="/./image/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/image-20230219171944787.png" alt="image-20230219171944787"></p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 方法引用：类（对象）::方法名</span><br><span class="line"><span class="bullet">2.</span> 构造器引用：类::new，不需要提供形参列表，java会根据使用时传入的形参列表去判断</span><br><span class="line"><span class="bullet">3.</span> 数组引用：类[]::new</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="3-Stream-API（Java-8）"><a href="#3-Stream-API（Java-8）" class="headerlink" title="3. Stream API（Java 8）"></a>3. Stream API（Java 8）</h2><h4 id="1-Stream-API-和集合框架对比"><a href="#1-Stream-API-和集合框架对比" class="headerlink" title="1. Stream API 和集合框架对比"></a>1. Stream API 和集合框架对比</h4><ul>
-<li>Stream API 关注的是数据的计算，面向CPU</li>
-<li>集合关注数据存储，面向内存</li>
-<li>Steam API 和集合的关系，类似于SQL语句和数据表的关系</li>
-</ul>
-<h4 id="2-Stream-API特性"><a href="#2-Stream-API特性" class="headerlink" title="2. Stream API特性"></a>2. Stream API特性</h4><ul>
-<li><code>Stream</code>自己不会存储元素</li>
-<li><code>Stream</code>不会改变源对象。相反，他们会返回一个持有结果的新<code>Stream</code></li>
-<li><code>Stream</code>操作是惰性的。这意味着他们会等到需要结果的时候才执行。即一旦执行终止操作，就执行中间操作链，并产生结果</li>
-<li><code>Stream</code>一旦执行了终止操作，就不能再调用其它中间操作或终止操作了</li>
-</ul>
-<h2 id="4-其他新语法和API"><a href="#4-其他新语法和API" class="headerlink" title="4. 其他新语法和API"></a>4. 其他新语法和API</h2><h4 id="1-jShell"><a href="#1-jShell" class="headerlink" title="1. jShell"></a>1. jShell</h4><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">/help: 获取有关使用 jshell 工具的信息</span><br><span class="line">/help intro : jshell 工具的简介</span><br><span class="line">/list : 列出当前 session 里所有有效的代码片段</span><br><span class="line">/vars : 查看当前 session 下所有创建过的变量</span><br><span class="line">/methods : 查看当前 session 下所有创建过的方法</span><br><span class="line">/imports : 列出导入的包</span><br><span class="line">/history : 键入的内容的历史记录</span><br><span class="line">/edit : 使用外部代码编辑器来编写 Java 代码</span><br><span class="line">/<span class="keyword">exit</span> : 退出 jshell 工具</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-try-catch资源关闭（是java-7的）"><a href="#2-try-catch资源关闭（是java-7的）" class="headerlink" title="2. try-catch资源关闭（是java 7的）"></a>2. try-catch资源关闭（是java 7的）</h4><ul>
-<li><code>try()</code>中可以放需要关闭的资源，不再需要在<code>finally</code>中手动关闭</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">FileWriter</span> <span class="variable">fw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">     <span class="type">BufferedWriter</span> <span class="variable">bw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(fw)</span><br><span class="line">) &#123;</span><br><span class="line">    bw.write(<span class="string">&quot;hello, world&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-局部变量类型推断"><a href="#3-局部变量类型推断" class="headerlink" title="3. 局部变量类型推断"></a>3. 局部变量类型推断</h4><h4 id="4-instanceof模式匹配"><a href="#4-instanceof模式匹配" class="headerlink" title="4. instanceof模式匹配"></a>4. instanceof模式匹配</h4><ul>
-<li><code>obj instanceof String str</code>,<code>str</code>是变量名称，如果模式匹配成功，<code>str</code>会被自动创建，不再需要强转类型</li>
-</ul>
-<h4 id="5-switch语句"><a href="#5-switch语句" class="headerlink" title="5. switch语句"></a>5. switch语句</h4><ul>
-<li><p>可以省略<code>break</code>：使用符号<code>-&gt;</code>，多行语句使用大括号</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; System.out.println(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; System.out.println(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            System.out.println(<span class="number">4</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; System.out.println(<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">default</span> -&gt; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Invalid week: &quot;</span> + week);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可以带返回值，多行语句要用<code>yield</code>返回</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">(Week week)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">switch</span> (week) &#123;</span><br><span class="line">        <span class="keyword">case</span> MONDAY -&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">case</span> TUESDAY, WEDNESDAY, THURSDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> FRIDAY -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="number">3</span>);</span><br><span class="line">            <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> SATURDAY, SUNDAY -&gt; <span class="number">4</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    System.out.println(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="6-多行文本块"><a href="#6-多行文本块" class="headerlink" title="6. 多行文本块"></a>6. 多行文本块</h4><ul>
-<li>类似于Python的多行文本块</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    &lt;html&gt;</span></span><br><span class="line"><span class="string">      &lt;body&gt;</span></span><br><span class="line"><span class="string">          &lt;p&gt;Hello, world&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;/body&gt;</span></span><br><span class="line"><span class="string">    &lt;/html&gt;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="7-record"><a href="#7-record" class="headerlink" title="7. record"></a>7. record</h4><ul>
-<li><p>类似于<code>Scala</code>中的<code>case class</code>，可以不用定义类的结构</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>传入的参数即为成员变量，<code>final</code>修饰，不可更改</p>
-</li>
-<li><p>只有<code>getter</code>方法，没有<code>setter</code>方法</p>
-</li>
-<li><p><code>record</code>类的父类是<code>Record</code>，因而不可继承</p>
-</li>
-<li><p><code>record</code>类被<code>final</code>修饰，不可被继承</p>
-</li>
-</ul>
-<h4 id="8-sealed密封类"><a href="#8-sealed密封类" class="headerlink" title="8. sealed密封类"></a>8. sealed密封类</h4><ul>
-<li>密封类可以指定只能被某些类继承，其他的类不能继承</li>
-<li>密封类的子类必须是以下三者之一：<code>final</code>、<code>sealed</code>、<code>non-sealed</code></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 密封类只能被Student, Teacher继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> Student, Teacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Student不能再被继承</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类还是密封类</span></span><br><span class="line"><span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> <span class="keyword">extends</span> <span class="title class_">SealedTest</span> <span class="keyword">permits</span> JuniorTeacher &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// non-sealed为非密封类，不再限制子类</span></span><br><span class="line"><span class="keyword">non-sealed</span> <span class="keyword">class</span> <span class="title class_">JuniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">Teacher</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可以正常继承</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SeniorTeacher</span> <span class="keyword">extends</span> <span class="title class_">JuniorTeacher</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="9-Optional"><a href="#9-Optional" class="headerlink" title="9. Optional"></a>9. Optional</h4><ul>
-<li>类似于<code>Scala</code>中的<code>Option</code></li>
-<li>为了避免代码中的空指针异常</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello, world&quot;</span>;</span><br><span class="line"><span class="comment">// s = null;</span></span><br><span class="line"><span class="comment">// 实例化</span></span><br><span class="line">Optional&lt;String&gt; optional = Optional.ofNullable(s);</span><br><span class="line"><span class="comment">// get元素</span></span><br><span class="line">System.out.println(optional.orElse(<span class="string">&quot;default&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
+    <title>categories</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>About</title>
     <url>/about/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
