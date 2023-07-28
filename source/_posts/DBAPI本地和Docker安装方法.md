@@ -132,3 +132,10 @@ categories:
     --add-host=host.docker.internal:host-gateway \
     freakchicken/db-api:4.0.0 standalone
     ```
+
+
+
+
+## 3. 参考
+
+- https://www.51dbapi.com/v4.0.0/zh/install/
