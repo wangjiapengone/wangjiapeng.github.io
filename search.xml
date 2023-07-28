@@ -45,35 +45,6 @@
       </tags>
   </entry>
   <entry>
-    <title>DBApi 如何进行本地调试</title>
-    <url>/docs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/</url>
-    <content><![CDATA[<p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
-<span id="more"></span>
-
-<h2 id="1-编译"><a href="#1-编译" class="headerlink" title="1. 编译"></a>1. 编译</h2><ul>
-<li>下载源码  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/freakchick/DBApi.git</span><br><span class="line"><span class="built_in">cd</span> DBApi</span><br></pre></td></tr></table></figure></li>
-<li>确认安装环境是否OK  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 是否安装Java</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br><span class="line"><span class="comment"># 是否安装npm</span></span><br><span class="line">npm -v</span><br><span class="line"><span class="comment"># 是否安装node</span></span><br><span class="line">node -v</span><br><span class="line"><span class="comment"># npm设置国内源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
-<li>使用 <code>idea</code> 打开项目，进入 <code>dbapi-ui</code>，修改 <code>pom.xml</code><br>  如下图所示，增加一行参数，否则在编译<code>dbapi-ui</code>时会报错  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;argument&gt;--legacy-peer-deps&lt;/argument&gt;</span><br></pre></td></tr></table></figure>
-  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png" alt="截屏2023-07-26 17.36.29"></li>
-<li>在项目根目录下用命令行编译  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn clean package -P release</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="2-配置并启动服务"><a href="#2-配置并启动服务" class="headerlink" title="2. 配置并启动服务"></a>2. 配置并启动服务</h2><ul>
-<li>编译完成后，找到下图中的文件：<code>dbapi-service/src/main/resources/application.properties</code>，修改配置信息<br>  配置参数可以参考本篇文章：<a href="https://wangjiapengone.github.io/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/#1-%E6%9C%AC%E5%9C%B0%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85">DBApi 本地和 Docker 安装方法</a><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png" alt="截屏2023-07-26 17.42.12"></li>
-<li>再参照安装的步骤，创建数据库并初始化<br>  初始化文件在 <code>dbapi-assembly/sql</code> 目录下</li>
-<li>准备工作完成，在 <code>idea</code> 下启动本地 <code>standalone</code> 服务<br>  启动类的位置：<code>dbapi-standalone/src/main/java/com/gitee/freakchicken/dbapi/DBApiStandalone.java</code><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png" alt="image-20230728175413171"></li>
-</ul>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2RldmVsb3Av">https://www.51dbapi.com/v4.0.0/zh/develop/<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-]]></content>
-      <categories>
-        <category>后端开发</category>
-      </categories>
-      <tags>
-        <tag>DBApi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git基础概念和常用命令</title>
     <url>/docs/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h2 id="1-概念和原理"><a href="#1-概念和原理" class="headerlink" title="1. 概念和原理"></a>1. 概念和原理</h2><h3 id="1-1-本地的三种工作区域"><a href="#1-1-本地的三种工作区域" class="headerlink" title="1.1 本地的三种工作区域"></a>1.1 本地的三种工作区域</h3><ul>
@@ -260,6 +231,35 @@
       </tags>
   </entry>
   <entry>
+    <title>DBApi 如何进行本地调试</title>
+    <url>/docs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[<p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
+<span id="more"></span>
+
+<h2 id="1-编译"><a href="#1-编译" class="headerlink" title="1. 编译"></a>1. 编译</h2><ul>
+<li>下载源码  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/freakchick/DBApi.git</span><br><span class="line"><span class="built_in">cd</span> DBApi</span><br></pre></td></tr></table></figure></li>
+<li>确认安装环境是否OK  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 是否安装Java</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br><span class="line"><span class="comment"># 是否安装npm</span></span><br><span class="line">npm -v</span><br><span class="line"><span class="comment"># 是否安装node</span></span><br><span class="line">node -v</span><br><span class="line"><span class="comment"># npm设置国内源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
+<li>使用 <code>idea</code> 打开项目，进入 <code>dbapi-ui</code>，修改 <code>pom.xml</code><br>  如下图所示，增加一行参数，否则在编译<code>dbapi-ui</code>时会报错  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;argument&gt;--legacy-peer-deps&lt;/argument&gt;</span><br></pre></td></tr></table></figure>
+  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png" alt="截屏2023-07-26 17.36.29"></li>
+<li>在项目根目录下用命令行编译  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn clean package -P release</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-配置并启动服务"><a href="#2-配置并启动服务" class="headerlink" title="2. 配置并启动服务"></a>2. 配置并启动服务</h2><ul>
+<li>编译完成后，找到下图中的文件：<code>dbapi-service/src/main/resources/application.properties</code>，修改配置信息<br>  配置参数可以参考本篇文章：<a href="https://wangjiapengone.github.io/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/#1-%E6%9C%AC%E5%9C%B0%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85">DBApi 本地和 Docker 安装方法</a><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png" alt="截屏2023-07-26 17.42.12"></li>
+<li>再参照安装的步骤，创建数据库并初始化<br>  初始化文件在 <code>dbapi-assembly/sql</code> 目录下</li>
+<li>准备工作完成，在 <code>idea</code> 下启动本地 <code>standalone</code> 服务<br>  启动类的位置：<code>dbapi-standalone/src/main/java/com/gitee/freakchicken/dbapi/DBApiStandalone.java</code><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png" alt="image-20230728175413171"></li>
+</ul>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2RldmVsb3Av">https://www.51dbapi.com/v4.0.0/zh/develop/<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端开发</category>
+      </categories>
+      <tags>
+        <tag>DBApi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java8-17的新特性</title>
     <url>/docs/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</url>
     <content><![CDATA[<h2 id="Lambda表达式（Java-8）"><a href="#Lambda表达式（Java-8）" class="headerlink" title="Lambda表达式（Java 8）"></a>Lambda表达式（Java 8）</h2><h4 id="1-Lambda表达式的本质"><a href="#1-Lambda表达式的本质" class="headerlink" title="1. Lambda表达式的本质"></a>1. Lambda表达式的本质</h4><ul>
@@ -376,6 +376,11 @@
       </tags>
   </entry>
   <entry>
+    <title>About</title>
+    <url>/about/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>categories</title>
     <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
@@ -383,11 +388,6 @@
   <entry>
     <title>tags</title>
     <url>/tags/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
