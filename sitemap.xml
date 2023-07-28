@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wangjiapengone.github.io/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2023-07-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wangjiapengone.github.io/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
     
     <lastmod>2023-07-25</lastmod>
@@ -49,22 +58,29 @@
 
   <url>
     <loc>https://wangjiapengone.github.io/</loc>
-    <lastmod>2023-07-25</lastmod>
+    <lastmod>2023-07-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://wangjiapengone.github.io/tags/Git/</loc>
-    <lastmod>2023-07-25</lastmod>
+    <loc>https://wangjiapengone.github.io/tags/DBApi/</loc>
+    <lastmod>2023-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/tags/Java/</loc>
-    <lastmod>2023-07-25</lastmod>
+    <lastmod>2023-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wangjiapengone.github.io/tags/Git/</loc>
+    <lastmod>2023-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -72,15 +88,22 @@
 
   
   <url>
-    <loc>https://wangjiapengone.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2023-07-25</lastmod>
+    <loc>https://wangjiapengone.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2023-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/categories/language/</loc>
-    <lastmod>2023-07-25</lastmod>
+    <lastmod>2023-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wangjiapengone.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2023-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
