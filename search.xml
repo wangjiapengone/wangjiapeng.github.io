@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DBApi 如何进行本地调试</title>
+    <url>/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[<p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
+<span id="more"></span>
+
+<h2 id="1-编译"><a href="#1-编译" class="headerlink" title="1. 编译"></a>1. 编译</h2><ul>
+<li>下载源码  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/freakchick/DBApi.git</span><br><span class="line"><span class="built_in">cd</span> DBApi</span><br></pre></td></tr></table></figure></li>
+<li>确认安装环境是否OK  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 是否安装Java</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br><span class="line"><span class="comment"># 是否安装npm</span></span><br><span class="line">npm -v</span><br><span class="line"><span class="comment"># 是否安装node</span></span><br><span class="line">node -v</span><br><span class="line"><span class="comment"># npm设置国内源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
+<li>使用 <code>idea</code> 打开项目，进入 <code>dbapi-ui</code>，修改 <code>pom.xml</code><br>  如下图所示，增加一行参数，否则在编译<code>dbapi-ui</code>时会报错  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;argument&gt;--legacy-peer-deps&lt;/argument&gt;</span><br></pre></td></tr></table></figure>
+  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png" alt="截屏2023-07-26 17.36.29"></li>
+<li>在项目根目录下用命令行编译  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn clean package -P release</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-配置并启动服务"><a href="#2-配置并启动服务" class="headerlink" title="2. 配置并启动服务"></a>2. 配置并启动服务</h2><ul>
+<li>编译完成后，找到下图中的文件：<code>dbapi-service/src/main/resources/application.properties</code>，修改配置信息<br>  配置参数可以参考本篇文章：<a href="https://wangjiapengone.github.io/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/#1-%E6%9C%AC%E5%9C%B0%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85">DBApi 本地和 Docker 安装方法</a><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png" alt="截屏2023-07-26 17.42.12"></li>
+<li>再参照安装的步骤，创建数据库并初始化<br>  初始化文件在 <code>dbapi-assembly/sql</code> 目录下</li>
+<li>准备工作完成，在 <code>idea</code> 下启动本地 <code>standalone</code> 服务<br>  启动类的位置：<code>dbapi-standalone/src/main/java/com/gitee/freakchicken/dbapi/DBApiStandalone.java</code><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png" alt="image-20230728175413171"></li>
+</ul>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2RldmVsb3Av">https://www.51dbapi.com/v4.0.0/zh/develop/<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端开发</category>
+      </categories>
+      <tags>
+        <tag>DBApi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DBApi 本地和 Docker 安装方法</title>
     <url>/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>本人是数据端开发，最近在工作中遇到需要向前端后端提供数据服务的问题，各端之间交互最好是提供数据接口，但我们人手有限，无力再维护一套 <code>Java</code> 服务，同时数据端吐出的数据一般业务逻辑都不复杂，用 <code>SQL</code> 就可以搞定，所以更没有开发 <code>Java</code> 服务的必要</p>
@@ -32,6 +61,9 @@
 <li>元数据库、日志数据库都选择本地的 <code>MySQL</code></li>
 <li>预先执行 <code>sql</code> 文件，创建对应的表，文件可以在容器中找到，注意需要预先在数据库中建好对应的库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi &lt; ddl_mysql.sql</span><br><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi_log &lt; access_log_mysql.sql</span><br></pre></td></tr></table></figure></li>
 <li>运行容器  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">-p 8520:8520 \</span><br><span class="line">-e DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">-e ACCESS_LOG_WRITER=<span class="string">&quot;db&quot;</span> \</span><br><span class="line">-e LOG_DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi_log?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e LOG_DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e LOG_DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e LOG_DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">--name dbapi \</span><br><span class="line">--add-host=host.docker.internal:host-gateway \</span><br><span class="line">freakchicken/db-api:4.0.0 standalone</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2luc3RhbGwv">https://www.51dbapi.com/v4.0.0/zh/install/<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 ]]></content>
       <categories>
@@ -344,8 +376,8 @@
       </tags>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>About</title>
+    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -354,8 +386,8 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
