@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wangjiapengone.github.io/googlef57d117ed5ef722b.html</loc>
+    
+    <lastmod>2023-09-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/</loc>
     
     <lastmod>2023-07-28</lastmod>
@@ -67,7 +76,7 @@
 
   <url>
     <loc>https://wangjiapengone.github.io/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -75,21 +84,21 @@
   
   <url>
     <loc>https://wangjiapengone.github.io/tags/DBApi/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/tags/Git/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/tags/Java/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -98,21 +107,21 @@
   
   <url>
     <loc>https://wangjiapengone.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wangjiapengone.github.io/categories/language/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <lastmod>2023-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
