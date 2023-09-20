@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>DBApi 本地和 Docker 安装方法</title>
-    <url>/blogs/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/</url>
+    <url>/blogs/dbapi-docker-install/</url>
     <content><![CDATA[<p>本人是数据端开发，最近在工作中遇到需要向前端后端提供数据服务的问题，各端之间交互最好是提供数据接口，但我们人手有限，无力再维护一套 <code>Java</code> 服务，同时数据端吐出的数据一般业务逻辑都不复杂，用 <code>SQL</code> 就可以搞定，所以更没有开发 <code>Java</code> 服务的必要</p>
 <p>所以我们调研了一些可以通过 <code>SQL</code> 直接生成接口的开源项目，最后觉得<code>DBApi</code>是一个比较理想的选择，其优点在于：</p>
 <ol>
@@ -46,7 +46,7 @@
   </entry>
   <entry>
     <title>DBApi 如何进行本地调试</title>
-    <url>/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/</url>
+    <url>/blogs/dbapi-local-debug/</url>
     <content><![CDATA[<p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
 <span id="more"></span>
 
@@ -75,7 +75,7 @@
   </entry>
   <entry>
     <title>Java8-17的新特性</title>
-    <url>/blogs/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <url>/blogs/java-new-features/</url>
     <content><![CDATA[<h2 id="Lambda表达式（Java-8）"><a href="#Lambda表达式（Java-8）" class="headerlink" title="Lambda表达式（Java 8）"></a>Lambda表达式（Java 8）</h2><h4 id="1-Lambda表达式的本质"><a href="#1-Lambda表达式的本质" class="headerlink" title="1. Lambda表达式的本质"></a>1. Lambda表达式的本质</h4><ul>
 <li>就是一个对象，是接口实现类的对象</li>
 <li>也是一个匿名函数</li>
@@ -191,7 +191,7 @@
   </entry>
   <entry>
     <title>Git基础概念和常用命令</title>
-    <url>/blogs/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <url>/blogs/git-concept-and-commands/</url>
     <content><![CDATA[<h2 id="1-概念和原理"><a href="#1-概念和原理" class="headerlink" title="1. 概念和原理"></a>1. 概念和原理</h2><h3 id="1-1-本地的三种工作区域"><a href="#1-1-本地的三种工作区域" class="headerlink" title="1.1 本地的三种工作区域"></a>1.1 本地的三种工作区域</h3><ul>
 <li>工作区：项目的文件夹</li>
 <li>暂存区：暂存被改动的文件,位于<code>.git</code>下的<code>index</code>文件，<code>git add</code>后文件都会被添加到暂存区内，<code>git commit</code>只提交暂存区中的文件，工作区的文件不提交</li>
@@ -388,13 +388,13 @@ d411fcf5e7e5dd9452daa99345741ca1]]></content>
 google-site-verification: googlef57d117ed5ef722b.html]]></content>
   </entry>
   <entry>
-    <title>About</title>
-    <url>/about/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>About</title>
+    <url>/about/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>

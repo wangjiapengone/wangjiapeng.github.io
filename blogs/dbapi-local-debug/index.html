@@ -23,7 +23,7 @@
     <meta name="description" content="在使用 DBApi 的过程中，可能会需要开发插件，以解决业务问题。在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 DBApi 源码，并在 Intellij IDEA 中启动服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DBApi 如何进行本地调试">
-<meta property="og:url" content="https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/index.html">
+<meta property="og:url" content="https://wangjiapengone.github.io/blogs/dbapi-local-debug/index.html">
 <meta property="og:site_name" content="JP Wang&#39;s blog">
 <meta property="og:description" content="在使用 DBApi 的过程中，可能会需要开发插件，以解决业务问题。在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 DBApi 源码，并在 Intellij IDEA 中启动服务">
 <meta property="og:locale" content="zh_CN">
@@ -31,18 +31,18 @@
 <meta property="og:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png">
 <meta property="og:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png">
 <meta property="article:published_time" content="2023-07-28T09:38:14.000Z">
-<meta property="article:modified_time" content="2023-07-28T09:55:24.824Z">
+<meta property="article:modified_time" content="2023-09-20T08:44:24.531Z">
 <meta property="article:author" content="Jiapeng Wang">
 <meta property="article:tag" content="DBApi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png">
 
 
-<link rel="canonical" href="https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/">
+<link rel="canonical" href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/","path":"blogs/DBApi如何进行本地调试/","title":"DBApi 如何进行本地调试"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangjiapengone.github.io/blogs/dbapi-local-debug/","path":"blogs/dbapi-local-debug/","title":"DBApi 如何进行本地调试"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>DBApi 如何进行本地调试 | JP Wang's blog</title>
@@ -195,7 +195,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/">
+    <link itemprop="mainEntityOfPage" href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -223,9 +223,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-07-28 17:38:14 / 修改时间：17:55:24" itemprop="dateCreated datePublished" datetime="2023-07-28T17:38:14+08:00">2023-07-28</time>
+      <time title="创建时间：2023-07-28 17:38:14" itemprop="dateCreated datePublished" datetime="2023-07-28T17:38:14+08:00">2023-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-20 16:44:24" itemprop="dateModified" datetime="2023-09-20T16:44:24+08:00">2023-09-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,7 +309,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/" title="DBApi 如何进行本地调试">https://wangjiapengone.github.io/blogs/DBApi如何进行本地调试/</a>
+      <a href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/" title="DBApi 如何进行本地调试">https://wangjiapengone.github.io/blogs/dbapi-local-debug/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -319,7 +325,7 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blogs/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/" rel="prev" title="DBApi 本地和 Docker 安装方法">
+                <a href="/blogs/dbapi-docker-install/" rel="prev" title="DBApi 本地和 Docker 安装方法">
                   <i class="fa fa-chevron-left"></i> DBApi 本地和 Docker 安装方法
                 </a>
             </div>

@@ -1,12 +1,12 @@
+https://wangjiapengone.github.io/blogs/dbapi-local-debug/
+https://wangjiapengone.github.io/blogs/git-concept-and-commands/
+https://wangjiapengone.github.io/blogs/java-new-features/
+https://wangjiapengone.github.io/blogs/dbapi-docker-install/
 https://wangjiapengone.github.io/baidu_verify_codeva-uGdm5ULWEU.html
 https://wangjiapengone.github.io/googlef57d117ed5ef722b.html
-https://wangjiapengone.github.io/blogs/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/
-https://wangjiapengone.github.io/blogs/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/
-https://wangjiapengone.github.io/blogs/Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/
 https://wangjiapengone.github.io/categories/index.html
 https://wangjiapengone.github.io/tags/index.html
 https://wangjiapengone.github.io/about/index.html
-https://wangjiapengone.github.io/blogs/Java8-17%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7/
 https://wangjiapengone.github.io/
 https://wangjiapengone.github.io/tags/DBApi/
 https://wangjiapengone.github.io/tags/Java/
