@@ -1,5 +1,6 @@
 ---
 title: DBApi 如何进行本地调试
+id: dbapi-local-debug
 date: 2023-07-28 17:38:14
 tags:
   - DBApi

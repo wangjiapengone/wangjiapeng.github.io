@@ -1,5 +1,6 @@
 ---
 title: DBApi 本地和 Docker 安装方法
+id: dbapi-docker-install
 date: 2023-07-28 16:33:09
 tags:
   - DBApi

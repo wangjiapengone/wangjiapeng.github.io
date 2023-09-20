@@ -1,5 +1,6 @@
 ---
 title: Java8-17的新特性
+id: java-new-features
 date: 2023-07-21 11:06:35
 categories:
   - 编程语言
