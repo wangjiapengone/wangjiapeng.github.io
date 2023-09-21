@@ -1,3 +1,4 @@
+https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/
 https://wangjiapengone.github.io/blogs/dbapi-local-debug/
 https://wangjiapengone.github.io/blogs/git-concept-and-commands/
 https://wangjiapengone.github.io/blogs/java-new-features/
@@ -9,8 +10,9 @@ https://wangjiapengone.github.io/tags/index.html
 https://wangjiapengone.github.io/about/index.html
 https://wangjiapengone.github.io/
 https://wangjiapengone.github.io/tags/DBApi/
-https://wangjiapengone.github.io/tags/Java/
 https://wangjiapengone.github.io/tags/Git/
+https://wangjiapengone.github.io/tags/Java/
+https://wangjiapengone.github.io/tags/Superset/
 https://wangjiapengone.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/
-https://wangjiapengone.github.io/categories/language/
 https://wangjiapengone.github.io/categories/%E5%B7%A5%E5%85%B7/
+https://wangjiapengone.github.io/categories/language/

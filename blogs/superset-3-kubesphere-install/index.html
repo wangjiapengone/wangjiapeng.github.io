@@ -20,32 +20,41 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wangjiapengone.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.17.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在使用 DBApi 的过程中，可能会需要开发插件，以解决业务问题。在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 DBApi 源码，并在 Intellij IDEA 中启动服务">
+    <meta name="description" content="1. 在 Kubesphere 上创建工作负载1.1 填写名称 1.2 设置镜像镜像使用官方提供的 apache&#x2F;superset:3.0.0 版本  1.3 设置环境变量 SUPERSET_SECRET_KEY 是必须提供的参数，可以使用 openssl rand -base64 42 来生成一个值 TALISMAN_ENABLED 需要设置为 False，否则可能会出现无法登录的情况，关于这个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DBApi 如何进行本地调试">
-<meta property="og:url" content="https://wangjiapengone.github.io/blogs/dbapi-local-debug/index.html">
+<meta property="og:title" content="在 Kubesphere 上安装 Superset 3.0.0">
+<meta property="og:url" content="https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/index.html">
 <meta property="og:site_name" content="JP Wang&#39;s blog">
-<meta property="og:description" content="在使用 DBApi 的过程中，可能会需要开发插件，以解决业务问题。在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 DBApi 源码，并在 Intellij IDEA 中启动服务">
+<meta property="og:description" content="1. 在 Kubesphere 上创建工作负载1.1 填写名称 1.2 设置镜像镜像使用官方提供的 apache&#x2F;superset:3.0.0 版本  1.3 设置环境变量 SUPERSET_SECRET_KEY 是必须提供的参数，可以使用 openssl rand -base64 42 来生成一个值 TALISMAN_ENABLED 需要设置为 False，否则可能会出现无法登录的情况，关于这个">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png">
-<meta property="og:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png">
-<meta property="og:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png">
-<meta property="article:published_time" content="2023-07-28T09:38:14.000Z">
-<meta property="article:modified_time" content="2023-09-20T08:44:24.531Z">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830165920411.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153225486.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153425701.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153733346.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920154145920.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920154446936.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830171535196.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830171652574.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172026142.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172206791.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172335163.png">
+<meta property="og:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920155730762.png">
+<meta property="article:published_time" content="2023-09-21T02:03:38.000Z">
+<meta property="article:modified_time" content="2023-09-21T02:31:38.562Z">
 <meta property="article:author" content="Jiapeng Wang">
-<meta property="article:tag" content="DBApi">
+<meta property="article:tag" content="Superset">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://wangjiapengone.github.io/image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png">
+<meta name="twitter:image" content="https://wangjiapengone.github.io/image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830165920411.png">
 
 
-<link rel="canonical" href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/">
+<link rel="canonical" href="https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangjiapengone.github.io/blogs/dbapi-local-debug/","path":"blogs/dbapi-local-debug/","title":"DBApi 如何进行本地调试"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/","path":"blogs/superset-3-kubesphere-install/","title":"在 Kubesphere 上安装 Superset 3.0.0"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>DBApi 如何进行本地调试 | JP Wang's blog</title>
+<title>在 Kubesphere 上安装 Superset 3.0.0 | JP Wang's blog</title>
   
 
 
@@ -143,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BC%96%E8%AF%91"><span class="nav-text">1. 编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E5%B9%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. 配置并启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8F%82%E8%80%83"><span class="nav-text">3. 参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9C%A8-Kubesphere-%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E8%B4%9F%E8%BD%BD"><span class="nav-text">1. 在 Kubesphere 上创建工作负载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A1%AB%E5%86%99%E5%90%8D%E7%A7%B0"><span class="nav-text">1.1 填写名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F"><span class="nav-text">1.2 设置镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">1.3 设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E7%82%B9%E5%87%BB%E5%88%9B%E5%BB%BA"><span class="nav-text">1.4 点击创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9C%A8-Kubesphere-%E4%B8%8A%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="nav-text">2. 在 Kubesphere 上创建服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="nav-text">2.1 创建服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0"><span class="nav-text">2.2 服务名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%8C%87%E5%AE%9A%E5%B7%A5%E4%BD%9C%E8%B4%9F%E8%BD%BD"><span class="nav-text">2.3 指定工作负载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E9%80%89%E6%8B%A9%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F"><span class="nav-text">2.4 选择外部访问方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96-Superset-%E6%9C%8D%E5%8A%A1"><span class="nav-text">3. 初始化 Superset 服务</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -179,23 +188,6 @@
     </div>
 
     
-        <div class="sidebar-inner sidebar-post-related">
-          <div class="animated">
-              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
-    相关文章
-  </div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/blogs/dbapi-docker-install/" rel="bookmark">
-        <time class="popular-posts-time">2023-07-28</time>
-        <br>
-      DBApi 本地和 Docker 安装方法
-      </a>
-    </li>
-  </ul>
-
-          </div>
-        </div>
   </aside>
 
 
@@ -212,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/">
+    <link itemprop="mainEntityOfPage" href="https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -225,12 +217,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="DBApi 如何进行本地调试 | JP Wang's blog">
+      <meta itemprop="name" content="在 Kubesphere 上安装 Superset 3.0.0 | JP Wang's blog">
       <meta itemprop="description" content>
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          DBApi 如何进行本地调试
+          在 Kubesphere 上安装 Superset 3.0.0
         </h1>
 
         <div class="post-meta-container">
@@ -240,24 +232,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-07-28 17:38:14" itemprop="dateCreated datePublished" datetime="2023-07-28T17:38:14+08:00">2023-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-20 16:44:24" itemprop="dateModified" datetime="2023-09-20T16:44:24+08:00">2023-09-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-        </span>
+      <time title="创建时间：2023-09-21 10:03:38 / 修改时间：10:31:38" itemprop="dateCreated datePublished" datetime="2023-09-21T10:03:38+08:00">2023-09-21</time>
     </span>
 
   
@@ -274,14 +251,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>322</span>
+      <span>446</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -291,24 +268,36 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
-<span id="more"></span>
+    <div class="post-body" itemprop="articleBody"><h2 id="1-在-Kubesphere-上创建工作负载"><a href="#1-在-Kubesphere-上创建工作负载" class="headerlink" title="1. 在 Kubesphere 上创建工作负载"></a>1. 在 Kubesphere 上创建工作负载</h2><h3 id="1-1-填写名称"><a href="#1-1-填写名称" class="headerlink" title="1.1 填写名称"></a>1.1 填写名称</h3><p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830165920411.png" alt="image-20230830165920411"></p>
+<h3 id="1-2-设置镜像"><a href="#1-2-设置镜像" class="headerlink" title="1.2 设置镜像"></a>1.2 设置镜像</h3><p>镜像使用官方提供的 <code>apache/superset:3.0.0</code> 版本</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153225486.png" alt="image-20230920153225486"></p>
+<h3 id="1-3-设置环境变量"><a href="#1-3-设置环境变量" class="headerlink" title="1.3 设置环境变量"></a>1.3 设置环境变量</h3><ul>
+<li><code>SUPERSET_SECRET_KEY</code> 是必须提供的参数，可以使用 <code>openssl rand -base64 42</code> 来生成一个值</li>
+<li><code>TALISMAN_ENABLED</code> 需要设置为 <code>False</code>，否则可能会出现无法登录的情况，关于这个问题的讨论可以看这个 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FwYWNoZS9zdXBlcnNldC9pc3N1ZXMvMjQ1Nzk=">issue<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153425701.png" alt="image-20230920153425701"></p>
+<h3 id="1-4-点击创建"><a href="#1-4-点击创建" class="headerlink" title="1.4 点击创建"></a>1.4 点击创建</h3><p>存储设置和高级设置不用管，直接创建</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153733346.png" alt="image-20230920153733346"></p>
+<p>点击刚创建好的容器实例</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920154145920.png" alt="image-20230920154145920"></p>
+<p>可以看到节点的 IP 地址为 <code>172.16.33.114</code>，记住这个地址方便之后访问</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920154446936.png" alt="image-20230920154446936"></p>
+<h2 id="2-在-Kubesphere-上创建服务"><a href="#2-在-Kubesphere-上创建服务" class="headerlink" title="2. 在 Kubesphere 上创建服务"></a>2. 在 Kubesphere 上创建服务</h2><h3 id="2-1-创建服务"><a href="#2-1-创建服务" class="headerlink" title="2.1 创建服务"></a>2.1 创建服务</h3><p>选择指定已有的工作负载来创建服务</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830171535196.png" alt="image-20230830171535196"></p>
+<h3 id="2-2-服务名称"><a href="#2-2-服务名称" class="headerlink" title="2.2 服务名称"></a>2.2 服务名称</h3><p>注意，服务名称不能为 <code>superset</code>, 否则会导致镜像无法启动</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830171652574.png" alt="image-20230830171652574"></p>
+<h3 id="2-3-指定工作负载"><a href="#2-3-指定工作负载" class="headerlink" title="2.3 指定工作负载"></a>2.3 指定工作负载</h3><p>指定工作负载为刚才创建的 <code>superset-test</code>, 同时修改容器端口和服务端口为默认的 <code>8088</code></p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172026142.png" alt="image-20230830172026142"></p>
+<h3 id="2-4-选择外部访问方式"><a href="#2-4-选择外部访问方式" class="headerlink" title="2.4 选择外部访问方式"></a>2.4 选择外部访问方式</h3><p>设置为 <code>NodePort</code>，点击创建</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172206791.png" alt="image-20230830172206791"></p>
+<p>可以看到外部访问的服务端口为 <code>30648</code></p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830172335163.png" alt="image-20230830172335163"></p>
+<h2 id="3-初始化-Superset-服务"><a href="#3-初始化-Superset-服务" class="headerlink" title="3. 初始化 Superset 服务"></a>3. 初始化 Superset 服务</h2><p>和之前的版本不同，<code>3.0.0</code> 版本需要进入容器中对服务进行初始化<br>首先进入在第一步中创建好的容器组，点击容器的终端图标，进入命令行界面</p>
+<p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920155730762.png" alt="image-20230920155730762"></p>
+<p>依次执行以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 admin 用户</span></span><br><span class="line">superset fab create-admin --username admin --firstname Superset --lastname Admin --email admin@superset.com --password admin</span><br><span class="line"><span class="comment"># 更新本地数据库</span></span><br><span class="line">superset db upgrade</span><br><span class="line"><span class="comment"># 设置用户角色</span></span><br><span class="line">superset init</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-编译"><a href="#1-编译" class="headerlink" title="1. 编译"></a>1. 编译</h2><ul>
-<li>下载源码  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/freakchick/DBApi.git</span><br><span class="line"><span class="built_in">cd</span> DBApi</span><br></pre></td></tr></table></figure></li>
-<li>确认安装环境是否OK  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否安装Java</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br><span class="line"><span class="comment"># 是否安装npm</span></span><br><span class="line">npm -v</span><br><span class="line"><span class="comment"># 是否安装node</span></span><br><span class="line">node -v</span><br><span class="line"><span class="comment"># npm设置国内源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
-<li>使用 <code>idea</code> 打开项目，进入 <code>dbapi-ui</code>，修改 <code>pom.xml</code><br>  如下图所示，增加一行参数，否则在编译<code>dbapi-ui</code>时会报错  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;argument&gt;--legacy-peer-deps&lt;/argument&gt;</span><br></pre></td></tr></table></figure>
-  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.36.29.png" alt="截屏2023-07-26 17.36.29"></li>
-<li>在项目根目录下用命令行编译  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -P release</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="2-配置并启动服务"><a href="#2-配置并启动服务" class="headerlink" title="2. 配置并启动服务"></a>2. 配置并启动服务</h2><ul>
-<li>编译完成后，找到下图中的文件：<code>dbapi-service/src/main/resources/application.properties</code>，修改配置信息<br>  配置参数可以参考本篇文章：<a href="https://wangjiapengone.github.io/DBAPI%E6%9C%AC%E5%9C%B0%E5%92%8CDocker%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/#1-%E6%9C%AC%E5%9C%B0%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85">DBApi 本地和 Docker 安装方法</a><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/%E6%88%AA%E5%B1%8F2023-07-26-17.42.12.png" alt="截屏2023-07-26 17.42.12"></li>
-<li>再参照安装的步骤，创建数据库并初始化<br>  初始化文件在 <code>dbapi-assembly/sql</code> 目录下</li>
-<li>准备工作完成，在 <code>idea</code> 下启动本地 <code>standalone</code> 服务<br>  启动类的位置：<code>dbapi-standalone/src/main/java/com/gitee/freakchicken/dbapi/DBApiStandalone.java</code><br>  <img data-src="/./image/DBApi%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95/image-20230728175413171.png" alt="image-20230728175413171"></li>
-</ul>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2RldmVsb3Av">https://www.51dbapi.com/v4.0.0/zh/develop/<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
+<p>最后把上面获得的 IP 和端口组合起来，就可以访问 Superset 服务：<code>http://172.16.33.114:30648/login/</code></p>
 
     </div>
 
@@ -326,7 +315,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://wangjiapengone.github.io/blogs/dbapi-local-debug/" title="DBApi 如何进行本地调试">https://wangjiapengone.github.io/blogs/dbapi-local-debug/</a>
+      <a href="https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/" title="在 Kubesphere 上安装 Superset 3.0.0">https://wangjiapengone.github.io/blogs/superset-3-kubesphere-install/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -335,21 +324,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/DBApi/" rel="tag"># DBApi</a>
+              <a href="/tags/Superset/" rel="tag"># Superset</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blogs/dbapi-docker-install/" rel="prev" title="DBApi 本地和 Docker 安装方法">
-                  <i class="fa fa-chevron-left"></i> DBApi 本地和 Docker 安装方法
+                <a href="/blogs/dbapi-local-debug/" rel="prev" title="DBApi 如何进行本地调试">
+                  <i class="fa fa-chevron-left"></i> DBApi 如何进行本地调试
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blogs/superset-3-kubesphere-install/" rel="next" title="在 Kubesphere 上安装 Superset 3.0.0">
-                  在 Kubesphere 上安装 Superset 3.0.0 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
