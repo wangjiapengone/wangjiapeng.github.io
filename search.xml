@@ -1,50 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DBApi 本地和 Docker 安装方法</title>
-    <url>/blogs/dbapi-docker-install/</url>
-    <content><![CDATA[<p>本人是数据端开发，最近在工作中遇到需要向前端后端提供数据服务的问题，各端之间交互最好是提供数据接口，但我们人手有限，无力再维护一套 <code>Java</code> 服务，同时数据端吐出的数据一般业务逻辑都不复杂，用 <code>SQL</code> 就可以搞定，所以更没有开发 <code>Java</code> 服务的必要</p>
-<p>所以我们调研了一些可以通过 <code>SQL</code> 直接生成接口的开源项目，最后觉得<code>DBApi</code>是一个比较理想的选择，其优点在于：</p>
-<ol>
-<li>零代码：直接在页面上写 <code>SQL</code> 就可以直接生成接口，不需要开发代码，虽然页面用起来有一些不太合理的地方，但是功能比较齐全，足够应付 <code>SQL</code> 开发</li>
-<li>目前仍在维护：目前出到 <code>4.0.0</code>，文档还算比较全，看文档安装、本地调试都没有太大问题，同时源码有注释，大部分都能看懂</li>
-</ol>
-<span id="more"></span>
-<br>
-
-<blockquote>
-<p><strong>本机环境：</strong><br>操作系统：Mac OS 13.4.1<br>MySQL：8.0.33</p>
-</blockquote>
-<h2 id="1-本地单机版安装"><a href="#1-本地单机版安装" class="headerlink" title="1. 本地单机版安装"></a>1. 本地单机版安装</h2><ul>
-<li>下载安装包  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://github.com/freakchick/DBApi/releases/download/v4.0.0/dbapi-4.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li>解压  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zvxf dbapi-4.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li>确认是否安装 <code>Java 8+</code> 环境  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br></pre></td></tr></table></figure></li>
-<li>修改配置文件  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> dbapi-4.0.0</span><br><span class="line">vim conf/application.properties</span><br></pre></td></tr></table></figure>
-  按如下配置项修改，选择 <code>MySQL</code> 存储元数据和日志信息  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#################################### please configure properties below #####################################</span></span><br><span class="line"><span class="comment"># api context</span></span><br><span class="line">dbapi.api.context=api</span><br><span class="line"></span><br><span class="line"><span class="comment"># metadata database address</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.driver-class-name=org.sqlite.JDBC</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.url=jdbc:sqlite::resource:sqlite.db</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.username=</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.password=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># metadata database address</span></span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.driver-class-name=com.mysql.cj.jdbc.Driver</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.url=jdbc:mysql://localhost:3306/dbapi?useSSL=<span class="literal">false</span>&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.username=root</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.password=123456</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># the writer to write access log to database, value can be null/db/kafka</span></span><br><span class="line"><span class="comment"># &quot;db&quot; means dbapi writes access log to database directly</span></span><br><span class="line"><span class="comment"># &quot;kafka&quot; means dbapi writes access log to kafka, you need to collect log from kafka to database yourself</span></span><br><span class="line"><span class="comment"># &quot;null&quot; means dbapi only writes access log to disk file(logs/dbapi-access.log), you need to collect log from disk to database yourself</span></span><br><span class="line">access.log.writer=db</span><br><span class="line"></span><br><span class="line"><span class="comment"># access log database(recommend clickhouse) address</span></span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.driver-class-name=com.mysql.cj.jdbc.Driver</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.url=jdbc:mysql://localhost:3306/dbapi_log?useSSL=<span class="literal">false</span>&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.username=root</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.password=123456</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.druid.break-after-acquire-failure=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka address, needed if access.log.writer=kafka</span></span><br><span class="line">access.log.kafka.topic=dbapi_access_log</span><br><span class="line">spring.kafka.bootstrap-servers=127.0.0.1:9092</span><br></pre></td></tr></table></figure></li>
-<li>进入 <code>MySQL</code>，创建对应数据库  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">mysql -hlocalhost -uroot -<span class="selector-tag">p</span></span><br></pre></td></tr></table></figure>
-  创建数据库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; create database dbapi;</span><br><span class="line">mysql&gt; create database dbapi_log;</span><br></pre></td></tr></table></figure>
-  初始化数据库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; use dbapi;</span><br><span class="line">mysql&gt; <span class="built_in">source</span> sql/ddl_mysql.sql;</span><br><span class="line">mysql&gt; use dbapi_log;</span><br><span class="line">mysql&gt; <span class="built_in">source</span> sql/access_log_mysql.sql;</span><br><span class="line">mysql&gt; <span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
-<li>启动服务  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh bin/dbapi-daemon.sh start standalone</span><br></pre></td></tr></table></figure></li>
-<li>进入页面：<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4NTIwLw==">http://localhost:8520<i class="fa fa-external-link-alt"></i></span> ，初始用户名&#x2F;密码为：<code>admin</code> &#x2F; <code>admin</code></li>
-<li>停止服务  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh bin/dbapi-daemon.sh stop standalone</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="2-Docker-单机版安装"><a href="#2-Docker-单机版安装" class="headerlink" title="2. Docker 单机版安装"></a>2. Docker 单机版安装</h2><ul>
-<li>元数据库、日志数据库都选择本地的 <code>MySQL</code></li>
-<li>预先执行 <code>sql</code> 文件，创建对应的表，文件可以在容器中找到，注意需要预先在数据库中建好对应的库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi &lt; ddl_mysql.sql</span><br><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi_log &lt; access_log_mysql.sql</span><br></pre></td></tr></table></figure></li>
-<li>运行容器  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">-p 8520:8520 \</span><br><span class="line">-e DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">-e ACCESS_LOG_WRITER=<span class="string">&quot;db&quot;</span> \</span><br><span class="line">-e LOG_DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi_log?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e LOG_DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e LOG_DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e LOG_DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">--name dbapi \</span><br><span class="line">--add-host=host.docker.internal:host-gateway \</span><br><span class="line">freakchicken/db-api:4.0.0 standalone</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2luc3RhbGwv">https://www.51dbapi.com/v4.0.0/zh/install/<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-]]></content>
-      <categories>
-        <category>后端开发</category>
-      </categories>
-      <tags>
-        <tag>DBApi</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DBApi 如何进行本地调试</title>
     <url>/blogs/dbapi-local-debug/</url>
     <content><![CDATA[<p>在使用 <code>DBApi</code> 的过程中，可能会需要开发插件，以解决业务问题。<br>在开发插件前，首先要调通本地的开发环境，本篇会介绍如何编译 <code>DBApi</code> 源码，并在 <code>Intellij IDEA</code> 中启动服务</p>
@@ -378,7 +334,10 @@
   <entry>
     <title>在 Kubesphere 上安装 Superset 3.0.0</title>
     <url>/blogs/superset-3-kubesphere-install/</url>
-    <content><![CDATA[<h2 id="1-在-Kubesphere-上创建工作负载"><a href="#1-在-Kubesphere-上创建工作负载" class="headerlink" title="1. 在 Kubesphere 上创建工作负载"></a>1. 在 Kubesphere 上创建工作负载</h2><h3 id="1-1-填写名称"><a href="#1-1-填写名称" class="headerlink" title="1.1 填写名称"></a>1.1 填写名称</h3><p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830165920411.png" alt="image-20230830165920411"></p>
+    <content><![CDATA[<p>Kubesphere 是企业级的开源容器平台，Superset 是轻量级的 BI 工具。使用 Kubesphere 可以很方便地部署 Superset 的线上环境，本文记录了 Superset 新发布的 3.0.0 版本在 Kubesphere 上的部署过程</p>
+<span id="more"></span>
+
+<h2 id="1-在-Kubesphere-上创建工作负载"><a href="#1-在-Kubesphere-上创建工作负载" class="headerlink" title="1. 在 Kubesphere 上创建工作负载"></a>1. 在 Kubesphere 上创建工作负载</h2><h3 id="1-1-填写名称"><a href="#1-1-填写名称" class="headerlink" title="1.1 填写名称"></a>1.1 填写名称</h3><p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230830165920411.png" alt="image-20230830165920411"></p>
 <h3 id="1-2-设置镜像"><a href="#1-2-设置镜像" class="headerlink" title="1.2 设置镜像"></a>1.2 设置镜像</h3><p>镜像使用官方提供的 <code>apache/superset:3.0.0</code> 版本</p>
 <p><img data-src="/./image/%E5%9C%A8Kubesphere%E4%B8%8A%E5%AE%89%E8%A3%85Superset-3.0.0/image-20230920153225486.png" alt="image-20230920153225486"></p>
 <h3 id="1-3-设置环境变量"><a href="#1-3-设置环境变量" class="headerlink" title="1.3 设置环境变量"></a>1.3 设置环境变量</h3><ul>
@@ -414,6 +373,50 @@
       </tags>
   </entry>
   <entry>
+    <title>DBApi 本地和 Docker 安装方法</title>
+    <url>/blogs/dbapi-docker-install/</url>
+    <content><![CDATA[<p>本人是数据端开发，最近在工作中遇到需要向前端后端提供数据服务的问题，各端之间交互最好是提供数据接口，但我们人手有限，无力再维护一套 <code>Java</code> 服务，同时数据端吐出的数据一般业务逻辑都不复杂，用 <code>SQL</code> 就可以搞定，所以更没有开发 <code>Java</code> 服务的必要</p>
+<p>所以我们调研了一些可以通过 <code>SQL</code> 直接生成接口的开源项目，最后觉得<code>DBApi</code>是一个比较理想的选择，其优点在于：</p>
+<ol>
+<li>零代码：直接在页面上写 <code>SQL</code> 就可以直接生成接口，不需要开发代码，虽然页面用起来有一些不太合理的地方，但是功能比较齐全，足够应付 <code>SQL</code> 开发</li>
+<li>目前仍在维护：目前出到 <code>4.0.0</code>，文档还算比较全，看文档安装、本地调试都没有太大问题，同时源码有注释，大部分都能看懂</li>
+</ol>
+<span id="more"></span>
+<br>
+
+<blockquote>
+<p><strong>本机环境：</strong><br>操作系统：Mac OS 13.4.1<br>MySQL：8.0.33</p>
+</blockquote>
+<h2 id="1-本地单机版安装"><a href="#1-本地单机版安装" class="headerlink" title="1. 本地单机版安装"></a>1. 本地单机版安装</h2><ul>
+<li>下载安装包  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://github.com/freakchick/DBApi/releases/download/v4.0.0/dbapi-4.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>解压  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zvxf dbapi-4.0.0-bin.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>确认是否安装 <code>Java 8+</code> 环境  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br></pre></td></tr></table></figure></li>
+<li>修改配置文件  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> dbapi-4.0.0</span><br><span class="line">vim conf/application.properties</span><br></pre></td></tr></table></figure>
+  按如下配置项修改，选择 <code>MySQL</code> 存储元数据和日志信息  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#################################### please configure properties below #####################################</span></span><br><span class="line"><span class="comment"># api context</span></span><br><span class="line">dbapi.api.context=api</span><br><span class="line"></span><br><span class="line"><span class="comment"># metadata database address</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.driver-class-name=org.sqlite.JDBC</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.url=jdbc:sqlite::resource:sqlite.db</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.username=</span></span><br><span class="line"><span class="comment"># spring.datasource.dynamic.datasource.meta-db.password=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># metadata database address</span></span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.driver-class-name=com.mysql.cj.jdbc.Driver</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.url=jdbc:mysql://localhost:3306/dbapi?useSSL=<span class="literal">false</span>&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.username=root</span><br><span class="line">spring.datasource.dynamic.datasource.meta-db.password=123456</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># the writer to write access log to database, value can be null/db/kafka</span></span><br><span class="line"><span class="comment"># &quot;db&quot; means dbapi writes access log to database directly</span></span><br><span class="line"><span class="comment"># &quot;kafka&quot; means dbapi writes access log to kafka, you need to collect log from kafka to database yourself</span></span><br><span class="line"><span class="comment"># &quot;null&quot; means dbapi only writes access log to disk file(logs/dbapi-access.log), you need to collect log from disk to database yourself</span></span><br><span class="line">access.log.writer=db</span><br><span class="line"></span><br><span class="line"><span class="comment"># access log database(recommend clickhouse) address</span></span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.driver-class-name=com.mysql.cj.jdbc.Driver</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.url=jdbc:mysql://localhost:3306/dbapi_log?useSSL=<span class="literal">false</span>&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.username=root</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.password=123456</span><br><span class="line">spring.datasource.dynamic.datasource.access-log-db.druid.break-after-acquire-failure=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka address, needed if access.log.writer=kafka</span></span><br><span class="line">access.log.kafka.topic=dbapi_access_log</span><br><span class="line">spring.kafka.bootstrap-servers=127.0.0.1:9092</span><br></pre></td></tr></table></figure></li>
+<li>进入 <code>MySQL</code>，创建对应数据库  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">mysql -hlocalhost -uroot -<span class="selector-tag">p</span></span><br></pre></td></tr></table></figure>
+  创建数据库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; create database dbapi;</span><br><span class="line">mysql&gt; create database dbapi_log;</span><br></pre></td></tr></table></figure>
+  初始化数据库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; use dbapi;</span><br><span class="line">mysql&gt; <span class="built_in">source</span> sql/ddl_mysql.sql;</span><br><span class="line">mysql&gt; use dbapi_log;</span><br><span class="line">mysql&gt; <span class="built_in">source</span> sql/access_log_mysql.sql;</span><br><span class="line">mysql&gt; <span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
+<li>启动服务  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh bin/dbapi-daemon.sh start standalone</span><br></pre></td></tr></table></figure></li>
+<li>进入页面：<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4NTIwLw==">http://localhost:8520<i class="fa fa-external-link-alt"></i></span> ，初始用户名&#x2F;密码为：<code>admin</code> &#x2F; <code>admin</code></li>
+<li>停止服务  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh bin/dbapi-daemon.sh stop standalone</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-Docker-单机版安装"><a href="#2-Docker-单机版安装" class="headerlink" title="2. Docker 单机版安装"></a>2. Docker 单机版安装</h2><ul>
+<li>元数据库、日志数据库都选择本地的 <code>MySQL</code></li>
+<li>预先执行 <code>sql</code> 文件，创建对应的表，文件可以在容器中找到，注意需要预先在数据库中建好对应的库  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi &lt; ddl_mysql.sql</span><br><span class="line">mysql -hlocalhost -P3306 -uroot -p123456 -Ddbapi_log &lt; access_log_mysql.sql</span><br></pre></td></tr></table></figure></li>
+<li>运行容器  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">-p 8520:8520 \</span><br><span class="line">-e DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">-e ACCESS_LOG_WRITER=<span class="string">&quot;db&quot;</span> \</span><br><span class="line">-e LOG_DB_URL=<span class="string">&quot;jdbc:mysql://host.docker.internal:3306/dbapi_log?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT%2B8&quot;</span> \</span><br><span class="line">-e LOG_DB_USERNAME=<span class="string">&quot;root&quot;</span> \</span><br><span class="line">-e LOG_DB_PASSWORD=<span class="string">&quot;123456&quot;</span> \</span><br><span class="line">-e LOG_DB_DRIVER=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span> \</span><br><span class="line">--name dbapi \</span><br><span class="line">--add-host=host.docker.internal:host-gateway \</span><br><span class="line">freakchicken/db-api:4.0.0 standalone</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3. 参考"></a>3. 参考</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuNTFkYmFwaS5jb20vdjQuMC4wL3poL2luc3RhbGwv">https://www.51dbapi.com/v4.0.0/zh/install/<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+]]></content>
+      <categories>
+        <category>后端开发</category>
+      </categories>
+      <tags>
+        <tag>DBApi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title></title>
     <url>/baidu_verify_codeva-uGdm5ULWEU.html</url>
     <content><![CDATA[
@@ -426,8 +429,8 @@ d411fcf5e7e5dd9452daa99345741ca1]]></content>
 google-site-verification: googlef57d117ed5ef722b.html]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>tags</title>
+    <url>/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -436,8 +439,8 @@ google-site-verification: googlef57d117ed5ef722b.html]]></content>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>tags</title>
-    <url>/tags/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
