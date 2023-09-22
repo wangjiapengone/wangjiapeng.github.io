@@ -2,10 +2,11 @@
 title: 在 Kubesphere 上安装 Superset 3.0.0
 date: 2023-09-21 10:03:38
 id: superset-3-kubesphere-install
-tags: 
-  - Superset
 categories:
   - 可视化
+tags: 
+  - Superset
+  - Kubesphere
 ---
 
 Kubesphere 是企业级的开源容器平台，Superset 是轻量级的 BI 工具。使用 Kubesphere 可以很方便地部署 Superset 的线上环境，本文记录了 Superset 新发布的 3.0.0 版本在 Kubesphere 上的部署过程
