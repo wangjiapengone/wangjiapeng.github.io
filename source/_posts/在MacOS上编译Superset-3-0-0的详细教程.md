@@ -206,3 +206,7 @@ superset run -p 8088 --with-threads --reload --debugger
 export PYTHONPATH=$(pwd)/pythonpath:$PYTHONPATH
 superset run -p 8088 --with-threads --reload --debugger
 ```
+
+## 5. 参考
+
+- 官方文档：https://superset.apache.org/docs/installation/installing-superset-from-scratch
